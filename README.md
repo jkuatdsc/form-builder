@@ -34,7 +34,7 @@ There should be a field composable that accepts the following attributes:
 * *validators*: this is a list containing all possible validators to be performed on that field
 * *styles*: theses are a couple of attributes available on the normal Material TextField
 
-Once you call validate from the `Form`'s state, all the form fields must be validated and the method should return a boolean to denote whether all the validators have passed or failed.
+Once you call validate from the `Form`'s state, all the form fields must be validated and the method should return a boolean to denote whether all the validators have passed or any has failed.
 The form state should also have a method to access all the data from each of the fields in the `Form`.
 
 ### Usage
