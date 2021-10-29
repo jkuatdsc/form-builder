@@ -29,7 +29,11 @@ class MainActivity : ComponentActivity() {
                 fields = listOf(
                     FormField(
                         name = "email",
-                        validators = listOf(Email())
+                        validators = listOf(Required())
+                    ),
+                    FormField(
+                        name = "phone",
+                        validators = listOf(Required())
                     )
                 )
             )

@@ -58,7 +58,7 @@ class FormField(val name: String, initial: String = "", val validators: List<Val
     }
 
 
-    private fun required(): Boolean = text.isEmpty()
+    private fun required(): Boolean = text.isNotEmpty()
 
     private fun max(limit: Double): Boolean = text.toDouble() < limit
 
