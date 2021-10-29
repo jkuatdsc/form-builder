@@ -37,7 +37,7 @@ class FormField(val name: String, initial: String = "", val validators: List<Val
                     if (!email()) showError(it.message)
                     email()
                 }
-                is PhoneNumber -> {
+                is Phone -> {
                     if (!phone()) showError(it.message)
                     phone()
                 }
