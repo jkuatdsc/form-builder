@@ -17,7 +17,7 @@ The library approaches the problem as follows:
 
 We have a `Form` composable that is in charge of drawing all the input fields on the screen. It has its own state used to validate the fields it contains and returns the data from the form. 
 The data returned from the form is in the form of `Map<String, Any>` where the fields' names are the keys in the map.
-
+ 
 *2. Validators*
 
 This is a group of methods that perform an actual check on the field's data. They are used to check if the data in the field matches the specified criteria.

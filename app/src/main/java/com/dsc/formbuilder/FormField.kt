@@ -1,11 +1,18 @@
 package com.dsc.formbuilder
 
 import android.util.Patterns
-import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.ZeroCornerSize
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 
 class FormField(val name: String, initial: String = "", val validators: List<Validators>) {
 
@@ -14,8 +21,45 @@ class FormField(val name: String, initial: String = "", val validators: List<Val
     var hasError: Boolean by mutableStateOf(false)
 
     @Composable
-    internal fun Content(){
-        TextField(value = text, onValueChange = { text = it })
+    internal fun Content(
+        enabled: Boolean = true,
+        readOnly: Boolean = false,
+        label: @Composable (() -> Unit)? = null,
+        textStyle: TextStyle = LocalTextStyle.current,
+        placeholder: @Composable (() -> Unit)? = null,
+        leadingIcon: @Composable (() -> Unit)? = null,
+        trailingIcon: @Composable (() -> Unit)? = null,
+        visualTransformation: VisualTransformation = VisualTransformation.None,
+        keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+        keyboardActions: KeyboardActions = KeyboardActions(),
+        singleLine: Boolean = false,
+        maxLines: Int = Int.MAX_VALUE,
+        interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+        shape: Shape =
+            MaterialTheme.shapes.small.copy(bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize),
+        colors: TextFieldColors = TextFieldDefaults.textFieldColors()
+    ){
+        TextField(
+            value = text,
+            onValueChange = { text = it },
+            label = label,
+            enabled = enabled,
+            textStyle = textStyle,
+            readOnly = readOnly,
+            modifier = Modifier.padding(10.dp),
+            singleLine = singleLine,
+            placeholder = placeholder,
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
+            isError = false,
+            visualTransformation = visualTransformation,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            maxLines = maxLines,
+            interactionSource = interactionSource,
+            shape = shape,
+            colors = colors
+        )
     }
 
     fun showError(error: String){

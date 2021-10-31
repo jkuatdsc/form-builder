@@ -5,12 +5,15 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +40,7 @@ class MainActivity : ComponentActivity() {
                     )
                 )
             )
+
             Button(
                 content = { Text("Click me") },
                 onClick = {
@@ -45,7 +49,8 @@ class MainActivity : ComponentActivity() {
                     } else {
                         Log.e("Validators", "Content: We are not good to go")
                     }
-                }
+                },
+                modifier = Modifier.padding(16.dp)
             )
         }
     }
