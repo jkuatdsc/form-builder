@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Form Builder"
 include ':app'
+include ':form-builder'

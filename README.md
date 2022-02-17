@@ -66,4 +66,9 @@ fun MyForm(){
 }
 ```
 
+The log:
+```bash
+com.dsc.formbuilder D/Data: submit: data from the form Credentials(email=test@mail.com, password=12345678, age=21)
+```
+
 MIT [Licence](LICENSE)
