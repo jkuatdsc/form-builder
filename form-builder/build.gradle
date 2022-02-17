@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -51,4 +52,18 @@ dependencies {
 
     // Kotlin reflection
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.dsc-jkuat'
+                artifactId = 'form-builder'
+                version = '1.0'
+            }
+        }
+    }
 }
