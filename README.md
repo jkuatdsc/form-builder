@@ -125,8 +125,7 @@ TextFieldState(
 * `name` - The name of the field.
 * `initial` - The initial text value of the field.
 * `transform` - A function that transforms the text field value to the desired type.
-* `validators` - A list of validators used to verify the validity of the input. Must be one of the [_
-  Validators_](/form-builder/src/main/java/com/dsc/form_builder/Validators.kt)
+* `validators` - A list of validators used to verify the validity of the input. Must be one of the [_Validators_](/form-builder/src/main/java/com/dsc/form_builder/Validators.kt)
 
 #### Methods
 
