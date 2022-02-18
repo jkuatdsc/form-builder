@@ -21,7 +21,7 @@ Then add the following to your module's `build.gradle`
     }
 
 ### Basic usage
-The library provides a [`FormState`](FormState.kt) class that represents the state of your Form. It receives a list of [`TextField`](TextFieldState.kt)
+The library provides a [`FormState`](/form-builder/src/main/java/com/dsc/form_builder/FormState.kt) class that represents the state of your Form. It receives a list of [`TextField`](/form-builder/src/main/java/com/dsc/form_builder/TextFieldState.kt)
 
     val formState = FormState(
         fields = listOf(
