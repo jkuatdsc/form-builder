@@ -130,12 +130,12 @@ TextFieldState(
 
 #### Methods
 
-| Method      | Return type | Description                                                                                                                                                                                       |
-|-------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `change`    | Unit        | This method is used to update the state of the textfield. It also hides the error in case the user started typing again after a failed validation. It receives the update/string as an argument.   |
-| `validate`  | Boolean     | Goes through all the specified validators checking if the text in the class meets therequired specifications. If one returns false, then the function returns false.// TODO: allow custom validators|
-| `showError` | Unit        | This is used to update the error in the class. It sets `hasError` to true and the `errorMessage` to the specified error.                                                                           |
-| `hideError` | Unit        | The opposite of `showError`. Clears the error message and sets `hasError` to false.                                                                                                               |
+| Method      | Return type | Description                                                                                                                                                                                     |
+|-------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `change`    | Unit        | This method is used to update the state of the textfield. It also hides the error in case the user started typing again after a failed validation. It receives the update/string as an argument. |
+| `validate`  | Boolean     | Goes through all the specified validators checking if the text in the class meets therequired specifications. If one returns false, then the function returns false.                              |
+| `showError` | Unit        | This is used to update the error in the class. It sets `hasError` to true and the `errorMessage` to the specified error.                                                                         |
+| `hideError` | Unit        | The opposite of `showError`. Clears the error message and sets `hasError` to false.                                                                                                             |
 
 ### FormState properties
 
