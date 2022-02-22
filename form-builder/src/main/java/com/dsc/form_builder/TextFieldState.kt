@@ -36,6 +36,7 @@ open class TextFieldState<T>(
             when (it) {
                 is Validators.Email -> validateEmail(it.message)
                 is Validators.Required -> validateRequired(it.message)
+                is Validators.Custom -> validateCustom(it.function, it.message)
                 is Validators.MinChars -> validateMinChars(it.limit, it.message)
                 is Validators.MaxChars -> validateMaxChars(it.limit, it.message)
                 is Validators.MaxValue -> validateMaxValue(it.limit, it.message)
@@ -43,6 +44,12 @@ open class TextFieldState<T>(
             }
         }
         return validations.all { it }
+    }
+
+    private fun validateCustom(function: (String) -> Boolean, message: String): Boolean {
+        val valid = function(text)
+        if (!valid) showError(message)
+        return valid
     }
 
     private fun validateEmail(message: String): Boolean {
