@@ -24,7 +24,6 @@ class MainViewmodel : ViewModel() {
                 transform = { it.toInt() },
                 validators = listOf(Validators.MinValue(limit = 18, message = "too young"))
             ),
-
             TextFieldState(
                 name = "gender",
                 validators = listOf(Validators.Required(message = "you need to specify your gender"))
