@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.dsc.form_builder.TextFieldState
 
 class MainActivity : ComponentActivity() {
-    private val viewmodel: MainViewmodel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun Content() {
-        val formState = remember { viewmodel.formState }
+        val formState = remember { viewModel.formState }
         val ageState = formState.getState<TextFieldState>("age")
         val emailState = formState.getState<TextFieldState>("email")
         val passwordState = formState.getState<TextFieldState>("password")
@@ -92,21 +92,21 @@ class MainActivity : ComponentActivity() {
 
             Button(
                 modifier = Modifier.padding(16.dp),
-                onClick = { viewmodel.submit() },
+                onClick = { viewModel.submit() },
                 content = { Text("submit") },
             )
         }
     }
 
     @Composable
-    fun SelectGender(genderState: TextFieldState<*>) {
+    fun SelectGender(genderState: TextFieldState) {
         val radioGroupOptions = listOf(
             "Male",
             "Female",
             "Non Binary",
             "Prefer not to say"
         )
-        val selected = genderState.text
+        val selected = genderState.value
         val onSelectedChanged = { text: String -> genderState.change(text) }
         Column(
             modifier = Modifier
@@ -126,8 +126,8 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun HappinessIndex(happinessState: TextFieldState<*>) {
-        val value = if (happinessState.text == "") 0.0f else happinessState.text.toFloat()
+    fun HappinessIndex(happinessState: TextFieldState) {
+        val value = if (happinessState.value == "") 0.0f else happinessState.value.toFloat()
         Text(text = "Happiness level: ${(value * 100).toInt()}")
         Slider(
             value = value,
@@ -135,9 +135,9 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun Hobbies(hobbyState: TextFieldState<*>) {
+    fun Hobbies(hobbyState: TextFieldState) {
         val hobbiesList = listOf("Chess", "Sky Diving", "Reading", "Travelling")
-        val selectedHobbies = remember { hobbyState.text.split(",").toMutableList() }
+        val selectedHobbies = remember { hobbyState.value.split(",").toMutableList() }
 
         fun onHobbySelected(add: Boolean, text: String) {
             if (add) {
