@@ -6,7 +6,7 @@ import com.dsc.form_builder.FormState
 import com.dsc.form_builder.TextFieldState
 import com.dsc.form_builder.Validators
 
-class MainViewmodel : ViewModel() {
+class MainViewModel : ViewModel() {
 
     val formState = FormState(
         fields = listOf(
