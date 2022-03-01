@@ -1,16 +1,18 @@
 package com.dsc.form_builder
 
 import android.util.Patterns
-import java.lang.Exception
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
 open class TextFieldState(
     name: String,
     initial: String = "",
     transform: Transform<String>? = null,
     validators: List<Validators> = listOf(),
-): BaseState<String>(name, transform, validators) {
+) : BaseState<String>(name, transform, validators) {
 
-    override var value: String = initial
+    override var value: String by mutableStateOf(initial)
 
     fun change(value: String) {
         hideError()
@@ -26,7 +28,9 @@ open class TextFieldState(
                 is Validators.Custom -> validateCustom(it.function, it.message)
                 is Validators.MinChars -> validateMinChars(it.limit, it.message)
                 is Validators.MaxChars -> validateMaxChars(it.limit, it.message)
-                else -> throw Exception("Invalid validator. Did you mean Validators.Custom?")
+                is Validators.MinValue -> validateMinValue(it.limit, it.message)
+                is Validators.MaxValue -> validateMaxValue(it.limit, it.message)
+                else -> throw Exception("Invalid validator. Did you mean Validators.Custom? $it")
             }
         }
         return validations.all { it }
