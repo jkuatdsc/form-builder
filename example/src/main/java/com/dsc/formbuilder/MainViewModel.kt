@@ -3,6 +3,7 @@ package com.dsc.formbuilder
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.dsc.form_builder.FormState
+import com.dsc.form_builder.RadioGroupState
 import com.dsc.form_builder.TextFieldState
 import com.dsc.form_builder.Validators
 
@@ -10,6 +11,10 @@ class MainViewModel : ViewModel() {
 
     val formState = FormState(
         fields = listOf(
+            RadioGroupState(
+                name = "gender",
+                validators = listOf(Validators.Required(message = "you need to specify your gender"))
+            ),
             TextFieldState(
                 name = "email",
                 transform = { it.trim().lowercase() },
@@ -23,10 +28,6 @@ class MainViewModel : ViewModel() {
                 name = "age",
                 transform = { it.toInt() },
                 validators = listOf(Validators.MinValue(limit = 18, message = "too young"))
-            ),
-            TextFieldState(
-                name = "gender",
-                validators = listOf(Validators.Required(message = "you need to specify your gender"))
             ),
             TextFieldState(
                 name = "happiness",
