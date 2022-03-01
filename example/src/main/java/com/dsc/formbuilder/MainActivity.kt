@@ -7,12 +7,14 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.dsc.form_builder.TextFieldState
 
@@ -29,12 +31,12 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun Content() {
         val formState = remember { viewModel.formState }
-        val ageState = formState.getState<TextFieldState>("age")
-        val emailState = formState.getState<TextFieldState>("email")
-        val passwordState = formState.getState<TextFieldState>("password")
-        val genderState = formState.getState<TextFieldState>("gender")
-        val happinessState = formState.getState<TextFieldState>("happiness")
-        val hobbiesState = formState.getState<TextFieldState>("hobbies")
+        val ageState = formState.getState("age")
+        val emailState = formState.getState("email")
+        val passwordState = formState.getState("password")
+        val genderState = formState.getState("gender")
+        val happinessState = formState.getState("happiness")
+        val hobbiesState = formState.getState("hobbies")
         val scrollState = rememberScrollState()
 
         Column(
@@ -58,7 +60,7 @@ class MainActivity : ComponentActivity() {
             Spacer(modifier = Modifier.height(20.dp))
 
             OutlinedTextField(
-                value = passwordState.text,
+                value = passwordState.value,
                 isError = passwordState.hasError,
                 label = { Text("Password") },
                 onValueChange = { passwordState.change(it) }
@@ -68,10 +70,11 @@ class MainActivity : ComponentActivity() {
             Spacer(modifier = Modifier.height(20.dp))
 
             OutlinedTextField(
-                value = ageState.text,
+                value = ageState.value,
                 isError = ageState.hasError,
                 label = { Text("Age") },
-                onValueChange = { ageState.change(it) }
+                onValueChange = { ageState.change(it) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
             if (ageState.hasError) Text(ageState.errorMessage, color = Color.Red)
 
