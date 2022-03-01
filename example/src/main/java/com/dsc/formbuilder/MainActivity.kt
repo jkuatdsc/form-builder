@@ -102,7 +102,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun SelectGender(genderState: TextFieldState) {
+    fun SelectGender(genderState: RadioGroupState) {
         val radioGroupOptions = listOf(
             "Male",
             "Female",
