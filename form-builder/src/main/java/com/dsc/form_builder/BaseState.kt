@@ -24,10 +24,9 @@ abstract class BaseState<T>(
         hasError = false
     }
 
-    open fun validate(): Boolean = true
+    abstract fun validate(): Boolean
 
-    fun getData(): Any? {
+    open fun getData(): Any? {
         return if (transform == null) value else transform.transform(value)
     }
-
 }
