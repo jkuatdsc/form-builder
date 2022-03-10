@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.dsc.form_builder.RadioGroupState
 import com.dsc.form_builder.TextFieldState
 
 class MainActivity : ComponentActivity() {
@@ -31,12 +32,12 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun Content() {
         val formState = remember { viewModel.formState }
-        val ageState = formState.getState("age")
-        val emailState = formState.getState("email")
-        val passwordState = formState.getState("password")
-        val genderState = formState.getState("gender")
-        val happinessState = formState.getState("happiness")
-        val hobbiesState = formState.getState("hobbies")
+        val ageState = formState.getState<TextFieldState>("age")
+        val emailState = formState.getState<TextFieldState>("email")
+        val passwordState = formState.getState<TextFieldState>("password")
+        val genderState = formState.getState<RadioGroupState>("gender")
+        val happinessState = formState.getState<TextFieldState>("happiness")
+        val hobbiesState = formState.getState<TextFieldState>("hobbies")
         val scrollState = rememberScrollState()
 
         Column(
@@ -102,7 +103,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun SelectGender(genderState: TextFieldState) {
+    fun SelectGender(genderState: RadioGroupState) {
         val radioGroupOptions = listOf(
             "Male",
             "Female",

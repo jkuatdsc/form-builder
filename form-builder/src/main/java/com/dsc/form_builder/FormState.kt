@@ -6,7 +6,7 @@ open class FormState<T : BaseState<*>>(val fields: List<T>) {
 
     fun validate(): Boolean = fields.map { it.validate() }.all { it }
 
-    fun getState(name: String): T = fields.first { it.name == name }
+    inline fun <reified u : BaseState<*>> getState(name: String): u = fields.first { it.name == name } as u
 
     fun <T : Any> getData(dataClass: KClass<T>): T {
         val map = fields.associate { it.name to it.getData() }
