@@ -146,4 +146,10 @@ The class receives only one argument, `fields`. This is a list of TextFieldState
 | `getState` | TextFieldState | This is used to get an instance of the TextFieldState class using the name.                                                                                                                    |
 | `getData`  | Any            | You can pass in a custom data class that will be used to map the form values to the properties of your data class. The transformation occurs at this point.                                    |
 
+### Further Reading
+
+The links below provide a reinforced understanding to the library.
+* [Introduction to Form Builder basics](https://www.section.io/engineering-education/jetpack-compose-forms/)
+* [Advanced Form Builder operations guide](https://www.section.io/engineering-education/making-jetpack-form-builder/)
+
 MIT [Licence](LICENSE)
