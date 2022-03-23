@@ -10,5 +10,5 @@ sealed interface Validators {
     class MinChars(var limit: Int, var message: String) : Validators
     class MaxChars(var limit: Int, var message: String) : Validators
     class Required(var message: String = REQUIRED_MESSAGE) : Validators
-    class Custom(var message: String, var function: (value: String) -> Boolean) : Validators
+    class Custom(var message: String, var function: (value: Any) -> Boolean) : Validators
 }
