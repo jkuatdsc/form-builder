@@ -21,6 +21,7 @@ class CheckBoxState(
         val validations = validators.map {
             when (it) {
                 is Validators.Required -> validateRequired(it.message)
+                is Validators.Custom -> validateCustom(it.function, it.message)
                 else -> throw Exception("${it::class.simpleName} validator cannot be called on checkbox state. Did you mean Validators.Custom?")
             }
         }
@@ -29,6 +30,12 @@ class CheckBoxState(
 
     private fun validateRequired(message: String): Boolean {
         val valid = value.isNotEmpty()
+        if (!valid) showError(message)
+        return valid
+    }
+
+    private fun validateCustom(function: (List<String>) -> Boolean, message: String): Boolean {
+        val valid = function(value)
         if (!valid) showError(message)
         return valid
     }
