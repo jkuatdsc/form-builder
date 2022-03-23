@@ -52,13 +52,13 @@ class MainActivity : ComponentActivity() {
 
             ) {
 
-
             OutlinedTextField(
                 value = emailState.value,
                 isError = emailState.hasError,
                 label = { Text("Email address") },
                 onValueChange = { emailState.change(it) }
             )
+
             if (emailState.hasError) Text(emailState.errorMessage, color = Color.Red)
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -69,6 +69,7 @@ class MainActivity : ComponentActivity() {
                 label = { Text("Password") },
                 onValueChange = { passwordState.change(it) }
             )
+
             if (passwordState.hasError) Text(passwordState.errorMessage, color = Color.Red)
 
             Spacer(modifier = Modifier.height(20.dp))
