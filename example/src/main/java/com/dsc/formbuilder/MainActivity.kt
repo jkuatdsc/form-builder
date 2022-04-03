@@ -10,13 +10,16 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.dsc.form_builder.RadioGroupState
+import com.dsc.form_builder.BaseState
+import com.dsc.form_builder.SelectState
+import com.dsc.form_builder.FormState
 import com.dsc.form_builder.TextFieldState
 
 class MainActivity : ComponentActivity() {
@@ -31,13 +34,13 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun Content() {
-        val formState = remember { viewModel.formState }
-        val ageState = formState.getState<TextFieldState>("age")
-        val emailState = formState.getState<TextFieldState>("email")
-        val passwordState = formState.getState<TextFieldState>("password")
-        val genderState = formState.getState<RadioGroupState>("gender")
-        val happinessState = formState.getState<TextFieldState>("happiness")
-        val hobbiesState = formState.getState<TextFieldState>("hobbies")
+        val formState: FormState<BaseState<out Any>> = remember { viewModel.formState }
+        val ageState: TextFieldState = formState.getState("age")
+        val emailState: TextFieldState = formState.getState("email")
+        val passwordState: TextFieldState = formState.getState("password")
+        val genderState: TextFieldState = formState.getState("gender")
+        val happinessState: TextFieldState = formState.getState("happiness")
+        val hobbiesState: SelectState = formState.getState("hobbies")
         val scrollState = rememberScrollState()
 
         Column(
@@ -49,13 +52,13 @@ class MainActivity : ComponentActivity() {
 
             ) {
 
-
             OutlinedTextField(
                 value = emailState.value,
                 isError = emailState.hasError,
                 label = { Text("Email address") },
                 onValueChange = { emailState.change(it) }
             )
+
             if (emailState.hasError) Text(emailState.errorMessage, color = Color.Red)
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -66,6 +69,7 @@ class MainActivity : ComponentActivity() {
                 label = { Text("Password") },
                 onValueChange = { passwordState.change(it) }
             )
+
             if (passwordState.hasError) Text(passwordState.errorMessage, color = Color.Red)
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -103,7 +107,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun SelectGender(genderState: RadioGroupState) {
+    fun SelectGender(genderState: TextFieldState) {
         val radioGroupOptions = listOf(
             "Male",
             "Female",
@@ -139,31 +143,25 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun Hobbies(hobbyState: TextFieldState) {
-        val hobbiesList = listOf("Chess", "Sky Diving", "Reading", "Travelling")
-        val selectedHobbies = remember { hobbyState.value.split(",").toMutableList() }
-
-        fun onHobbySelected(add: Boolean, text: String) {
-            if (add) {
-                selectedHobbies.add(text)
-                hobbyState.change(selectedHobbies.toString())
-            } else if (!add) {
-                selectedHobbies.remove(text)
-                hobbyState.change(selectedHobbies.toString())
-            }
-        }
-
+    fun Hobbies(hobbyState: SelectState) {
+        val hobbiesList = listOf(
+            "Chess",
+            "Sky Diving",
+            "Reading",
+            "Travelling",
+            "Bike Riding",
+            "Mountain Climbing"
+        )
         Text(text = "Hobbies")
 
         hobbiesList.forEach { hobby ->
-            var isChecked by remember { mutableStateOf(false) }
             Row(Modifier.fillMaxWidth()) {
                 Checkbox(
-                    checked = isChecked,
+                    checked = hobbyState.value.contains(hobby),
                     onCheckedChange = {
-                        isChecked = it
-                        onHobbySelected(it, text = hobby)
-                    })
+                        if (it) hobbyState.check(hobby) else hobbyState.uncheck(hobby)
+                    }
+                )
                 Text(text = hobby, modifier = Modifier.padding(top = 14.dp))
             }
         }

@@ -2,6 +2,7 @@ package com.dsc.formbuilder
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.dsc.form_builder.SelectState
 import com.dsc.form_builder.FormState
 import com.dsc.form_builder.RadioGroupState
 import com.dsc.form_builder.TextFieldState
@@ -34,12 +35,12 @@ class MainViewModel : ViewModel() {
                 transform = { it.toFloat() },
                 validators = listOf(Validators.Required(message = "how happy are you?"))
             ),
-            TextFieldState(
+            SelectState(
                 name = "hobbies",
-                transform = { it.split(",").toList() },
-                validators = listOf(Validators.Required(message = "pick at least one hobby"))
+                validators = listOf(
+                    Validators.Required(message = "pick at least one hobby")
+                )
             )
-
         )
     )
 
