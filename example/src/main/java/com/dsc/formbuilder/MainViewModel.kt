@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.dsc.form_builder.SelectState
 import com.dsc.form_builder.FormState
-import com.dsc.form_builder.RadioGroupState
+import com.dsc.form_builder.ChoiceState
 import com.dsc.form_builder.TextFieldState
 import com.dsc.form_builder.Validators
 
@@ -12,7 +12,7 @@ class MainViewModel : ViewModel() {
 
     val formState = FormState(
         fields = listOf(
-            RadioGroupState(
+            ChoiceState(
                 name = "gender",
                 validators = listOf(Validators.Required(message = "you need to specify your gender"))
             ),

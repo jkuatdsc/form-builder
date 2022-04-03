@@ -10,22 +10,36 @@ class SelectState(
 
     override var value: MutableList<String> = mutableStateListOf()
 
-    fun check(checkValue: String) {
-        value.add(checkValue)
+    fun select(selectValue: String) {
+        value.add(selectValue)
         hideError()
     }
 
-    fun uncheck(uncheckValue: String) = value.remove(uncheckValue)
+    fun unselect(selectValue: String) = value.remove(selectValue)
 
     override fun validate(): Boolean {
         val validations = validators.map {
             when (it) {
+                is Validators.Min -> validateMin(it.limit, it.message)
+                is Validators.Max -> validateMax(it.limit, it.message)
                 is Validators.Required -> validateRequired(it.message)
                 is Validators.Custom -> validateCustom(it.function, it.message)
                 else -> throw Exception("${it::class.simpleName} validator cannot be called on checkbox state. Did you mean Validators.Custom?")
             }
         }
         return validations.all { it }
+    }
+
+    private fun validateMin(limit: Int, message: String): Boolean {
+        val valid = value.size >= limit
+        if (!valid) showError(message)
+        return valid
+    }
+
+    private fun validateMax(limit: Int, message: String): Boolean {
+        val valid = value.size <= limit
+        if (!valid) showError(message)
+        return valid
     }
 
     private fun validateRequired(message: String): Boolean {

@@ -25,18 +25,17 @@ open class TextFieldState(
             when (it) {
                 is Validators.Email -> validateEmail(it.message)
                 is Validators.Required -> validateRequired(it.message)
+                is Validators.Min -> validateMinChars(it.limit, it.message)
+                is Validators.Max -> validateMaxChars(it.limit, it.message)
                 is Validators.Custom -> validateCustom(it.function, it.message)
-                is Validators.MinChars -> validateMinChars(it.limit, it.message)
-                is Validators.MaxChars -> validateMaxChars(it.limit, it.message)
                 is Validators.MinValue -> validateMinValue(it.limit, it.message)
                 is Validators.MaxValue -> validateMaxValue(it.limit, it.message)
-                else -> throw Exception("Invalid validator. Did you mean Validators.Custom? $it")
             }
         }
         return validations.all { it }
     }
 
-    private fun validateCustom(function: (String) -> Boolean, message: String): Boolean {
+    internal fun validateCustom(function: (String) -> Boolean, message: String): Boolean {
         val valid = function(value)
         if (!valid) showError(message)
         return valid
@@ -48,7 +47,7 @@ open class TextFieldState(
         return valid
     }
 
-    private fun validateRequired(message: String): Boolean {
+    internal fun validateRequired(message: String): Boolean {
         val valid = value.isNotEmpty()
         if (!valid) showError(message)
         return valid

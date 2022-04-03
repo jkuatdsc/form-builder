@@ -17,10 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.dsc.form_builder.BaseState
-import com.dsc.form_builder.SelectState
-import com.dsc.form_builder.FormState
-import com.dsc.form_builder.TextFieldState
+import com.dsc.form_builder.*
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
@@ -38,7 +35,7 @@ class MainActivity : ComponentActivity() {
         val ageState: TextFieldState = formState.getState("age")
         val emailState: TextFieldState = formState.getState("email")
         val passwordState: TextFieldState = formState.getState("password")
-        val genderState: TextFieldState = formState.getState("gender")
+        val genderState: ChoiceState = formState.getState("gender")
         val happinessState: TextFieldState = formState.getState("happiness")
         val hobbiesState: SelectState = formState.getState("hobbies")
         val scrollState = rememberScrollState()
@@ -107,7 +104,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun SelectGender(genderState: TextFieldState) {
+    fun SelectGender(genderState: ChoiceState) {
         val radioGroupOptions = listOf(
             "Male",
             "Female",
@@ -159,7 +156,7 @@ class MainActivity : ComponentActivity() {
                 Checkbox(
                     checked = hobbyState.value.contains(hobby),
                     onCheckedChange = {
-                        if (it) hobbyState.check(hobby) else hobbyState.uncheck(hobby)
+                        if (it) hobbyState.select(hobby) else hobbyState.unselect(hobby)
                     }
                 )
                 Text(text = hobby, modifier = Modifier.padding(top = 14.dp))
