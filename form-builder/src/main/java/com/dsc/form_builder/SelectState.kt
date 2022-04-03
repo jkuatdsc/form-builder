@@ -2,7 +2,7 @@ package com.dsc.form_builder
 
 import androidx.compose.runtime.mutableStateListOf
 
-class CheckBoxState(
+class SelectState(
     name: String,
     transform: Transform<MutableList<String>>? = null,
     validators: List<Validators> = listOf()

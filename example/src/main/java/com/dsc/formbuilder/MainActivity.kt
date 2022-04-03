@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.dsc.form_builder.BaseState
-import com.dsc.form_builder.CheckBoxState
+import com.dsc.form_builder.SelectState
 import com.dsc.form_builder.FormState
 import com.dsc.form_builder.TextFieldState
 
@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
         val passwordState: TextFieldState = formState.getState("password")
         val genderState: TextFieldState = formState.getState("gender")
         val happinessState: TextFieldState = formState.getState("happiness")
-        val hobbiesState: CheckBoxState = formState.getState("hobbies")
+        val hobbiesState: SelectState = formState.getState("hobbies")
         val scrollState = rememberScrollState()
 
         Column(
@@ -143,7 +143,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun Hobbies(hobbyState: CheckBoxState) {
+    fun Hobbies(hobbyState: SelectState) {
         val hobbiesList = listOf(
             "Chess",
             "Sky Diving",

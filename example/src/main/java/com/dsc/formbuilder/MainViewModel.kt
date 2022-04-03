@@ -2,7 +2,7 @@ package com.dsc.formbuilder
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.dsc.form_builder.CheckBoxState
+import com.dsc.form_builder.SelectState
 import com.dsc.form_builder.FormState
 import com.dsc.form_builder.TextFieldState
 import com.dsc.form_builder.Validators
@@ -34,7 +34,7 @@ class MainViewModel : ViewModel() {
                 transform = { it.toFloat() },
                 validators = listOf(Validators.Required(message = "how happy are you?"))
             ),
-            CheckBoxState(
+            SelectState(
                 name = "hobbies",
                 validators = listOf(
                     Validators.Required(message = "pick at least one hobby")
