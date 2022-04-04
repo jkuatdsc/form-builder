@@ -16,17 +16,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build and run tests
-        run: ./gradlew build
-
       - name: Generate API documentation
-        if: ${{github.event_name == 'push'}}
         run: ./gradlew dokkaHtml
 
       - name: Deploy API documentation to Github Pages
-        if: ${{github.event_name == 'push'}}
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: build/dokka/html
+          FOLDER: ./form-builder/build/dokka/html
