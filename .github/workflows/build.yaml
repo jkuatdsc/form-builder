@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  gradle:
-    runs-on: ${{ matrix.os }}
+  build:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v2
