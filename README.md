@@ -9,7 +9,7 @@ implementation of a form.
 The library is used to help in the state management of a `Form` in Jetpack compose. Currently, we don't have an official
 support for a Form so the library is used to provide a custom implementation of the same.
 
-### Installation
+### <a id="installs" href="#installs">Installation</a>
 
 In the root `build.gradle` file add the following:
 
@@ -27,7 +27,7 @@ dependencies {
 }
 ```
 
-### Basic usage
+### <a id="basics" href="#basics">Basic Usage</a>
 
 The library provides a [`FormState`](/form-builder/src/main/java/com/dsc/form_builder/FormState.kt) class that
 represents the state of your Form. It receives a list
@@ -118,7 +118,7 @@ TextFieldState(
 )
 ```
 
-### TextFieldState properties
+### <a id="textfield" href="#textfield">TextFieldState Properties</a>
 
 #### Arguments
 
@@ -136,7 +136,7 @@ TextFieldState(
 | `showError` | Unit        | This is used to update the error in the class. It sets `hasError` to true and the `errorMessage` to the specified error.                                                                         |
 | `hideError` | Unit        | The opposite of `showError`. Clears the error message and sets `hasError` to false.                                                                                                             |
 
-### FormState properties
+### <a id="form" href="#form">FormState Properties</a>
 
 The class receives only one argument, `fields`. This is a list of TextFieldState objects.
 
@@ -145,5 +145,11 @@ The class receives only one argument, `fields`. This is a list of TextFieldState
 | `validate` | Boolean        | This method goes through all the fields specified and calls the`.validate()` function. If any of the fields' validations return false, the methods returns false too. Otherwise, it returns true. |
 | `getState` | TextFieldState | This is used to get an instance of the TextFieldState class using the name.                                                                                                                    |
 | `getData`  | Any            | You can pass in a custom data class that will be used to map the form values to the properties of your data class. The transformation occurs at this point.                                    |
+
+### <a id="links" href="#links">Further Reading</a>
+
+The links below provide a reinforced understanding to the library.
+* [Introduction to Form Builder basics](https://www.section.io/engineering-education/jetpack-compose-forms/)
+* [Advanced Form Builder operations guide](https://www.section.io/engineering-education/making-jetpack-form-builder/)
 
 MIT [Licence](LICENSE)
