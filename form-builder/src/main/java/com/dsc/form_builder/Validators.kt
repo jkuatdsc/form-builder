@@ -4,8 +4,12 @@ private const val EMAIL_MESSAGE = "invalid email address"
 private const val REQUIRED_MESSAGE = "this field is required"
 
 /**
+ *
  * These are the types of validators available in the form builder library.
  * They all have the [message] parameter to allow the developer to set their own custom error message.
+ *
+ * @author [Linus Muema](https://github.com/linusmuema)
+ * @created 05/04/2022 - 10:00 AM
  */
 sealed interface Validators {
 
