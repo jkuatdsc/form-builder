@@ -102,7 +102,7 @@ open class TextFieldState(
 
     /**
      * A function that checks the upper limit i.e. maximum number of characters in [value].
-     * It will return true if the characters are lesser than the specified limit.
+     * It will return true if the characters are lesser than or equal to the specified limit.
      * @param limit the maximum characters that [value] can hold.
      * @param message the error message passed to [showError] to display if the characters are greater than the limit.
      */
@@ -114,7 +114,7 @@ open class TextFieldState(
 
     /**
      * A function that checks the lower limit i.e the least number of characters in [value].
-     * It will return true if the characters are greater than the specified limit.
+     * It will return true if the characters are greater than or equal to the specified limit.
      * @param limit the least number of characters that [value] can hold.
      * @param message the error message passed to [showError] to display if the characters are lesser than the limit.
      */
