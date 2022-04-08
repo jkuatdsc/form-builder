@@ -1,11 +1,32 @@
 package com.dsc.form_builder
 
+/**
+ *ChoiceState is a class that holds the chosen value from a selection of choices.
+ * In this case the user is limited to a single choice.
+ * Only [Validators.Required] and [Validators.Custom] are supported for this class.
+ *
+ * @param name the name of the state used to get an instance of the state from the form builder.
+ * using the [FormBuilder.getState] method.
+ *
+ * @param transform the transformation function used to transform the  values of the state to a desired type.
+ * This function will be applied to the value before it is returned.
+ *
+ * @param validators a list of [Validators] applied to the state's value.
+ *
+ * @author [Samwel Otieno](https://github.com/otienosamwel)
+ */
 class ChoiceState(
     name: String,
     validators: List<Validators>,
     transform: Transform<String>? = null,
-) : TextFieldState(name = name, validators = validators, transform = transform){
+) : TextFieldState(name = name, validators = validators, transform = transform) {
 
+    /**
+     * This function all [validators] passed in to th state class against the state's value.
+     *
+     * @throws Exception if the used [Validators] class is not supported.
+     * @return true if all validators pass, false otherwise.
+     */
     override fun validate(): Boolean {
         val validations = validators.map {
             when (it) {
