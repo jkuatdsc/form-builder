@@ -14,16 +14,16 @@ private const val REQUIRED_MESSAGE = "this field is required"
 sealed interface Validators {
 
     /**
-     * This validator is used to check for number of values in the state. It will return true if the values are less than the specified limit. In [TextFieldState] this is used to check for the minimum number of characters while in [SelectState], it is used to check for the minimum number of options selected.
-     * @param limit the maximum value that the value can hold.
-     * @param message the error message to display if the value is not less than the limit.
+     * This validator is used to check for number of values in the state. It will return true if the values are more than the specified limit. In [TextFieldState] this is used to check for the minimum number of characters while in [SelectState], it is used to check for the minimum number of options selected.
+     * @param limit the minimum value that the state should hold.
+     * @param message the error message to display if the value is less than the limit.
      */
     class Min(var limit: Int, var message: String) : Validators
 
     /**
-     * This validator is also used to check for values in the state. Unlike the [Min] validator, it will return true if the values are greater than the specified limit.  In [TextFieldState] this is used to check for the maximum number of characters while in [SelectState], it is used to check for the maximum number of options selected.
-     * @param limit the minimum value that the value can hold.
-     * @param message the error message to display if the value is not greater than the limit.
+     * This validator is also used to check for values in the state. Unlike the [Min] validator, it will return true if the values are less than the specified limit.  In [TextFieldState] this is used to check for the maximum number of characters while in [SelectState], it is used to check for the maximum number of options selected.
+     * @param limit the maximum value that the value can hold.
+     * @param message the error message to display if the value is greater than the limit.
      */
     class Max(var limit: Int, var message: String) : Validators
 
