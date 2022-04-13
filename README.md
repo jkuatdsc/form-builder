@@ -8,7 +8,7 @@ implementation of a form.
 The library is used to help in the state management of a `Form` in Jetpack compose. Currently, we don't have an official
 support for a form state so the library is used to provide a custom implementation of the same.
 
-### <a id="installs" href="#installs">Installation
+### <a id="installs" href="#installs">Installation</a>
 
 In the root `build.gradle` file add the following:
 
