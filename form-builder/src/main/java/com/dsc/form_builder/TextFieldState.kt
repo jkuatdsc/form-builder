@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
  * It also helps keep track of form field input changes and pass updates to the onValueChange callback.
  *
  * @param name The name of the field used to access the state when required in the form
- * @param initial The initial value which is of type [String] on the [value]
  * @param transform The function used to change the [String] data type on the text field to a suitable type e.g [String] to [Int].
  * @param validators This is the list of [Validators] that are used to validate the field state. By default the field states will have an empty list. You can override this and provide your own list of validators.
  *
@@ -20,7 +19,6 @@ import androidx.compose.runtime.*
  */
 open class TextFieldState(
     name: String,
-    initial: String = "",
     transform: Transform<String>? = null,
     validators: List<Validators> = listOf(),
 ) : BaseState<String>(name, transform, validators) {
@@ -29,7 +27,7 @@ open class TextFieldState(
      * A mutable value holder that reads to the initial parameter during the execution of a [Composable]
      * function, the current [RecomposeScope] will be subscribed to changes of this value.
      */
-    override var value: String by mutableStateOf(initial)
+    override var value: String by mutableStateOf("")
 
     /**
      * A function to update the [RecomposeScope] with the latest [value].
