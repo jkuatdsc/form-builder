@@ -28,7 +28,7 @@ $dokka.location:com.dsc.form_builder/SelectState/select/#kotlin.String/PointingT
 $dokka.location:com.dsc.form_builder/SelectState/unselect/#kotlin.String/PointingToDeclaration/form-builder/com.dsc.form_builder/-select-state/unselect.html
 $dokka.location:com.dsc.form_builder/SelectState/value/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-select-state/value.html
 $dokka.location:com.dsc.form_builder/TextFieldState///PointingToDeclaration/form-builder/com.dsc.form_builder/-text-field-state/index.html
-$dokka.location:com.dsc.form_builder/TextFieldState/TextFieldState/#kotlin.String#kotlin.String#com.dsc.form_builder.Transform[kotlin.String]?#kotlin.collections.List[com.dsc.form_builder.Validators]/PointingToDeclaration/form-builder/com.dsc.form_builder/-text-field-state/-text-field-state.html
+$dokka.location:com.dsc.form_builder/TextFieldState/TextFieldState/#kotlin.String#com.dsc.form_builder.Transform[kotlin.String]?#kotlin.collections.List[com.dsc.form_builder.Validators]/PointingToDeclaration/form-builder/com.dsc.form_builder/-text-field-state/-text-field-state.html
 $dokka.location:com.dsc.form_builder/TextFieldState/change/#kotlin.String/PointingToDeclaration/form-builder/com.dsc.form_builder/-text-field-state/change.html
 $dokka.location:com.dsc.form_builder/TextFieldState/value/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-text-field-state/value.html
 $dokka.location:com.dsc.form_builder/Transform///PointingToDeclaration/form-builder/com.dsc.form_builder/-transform/index.html
