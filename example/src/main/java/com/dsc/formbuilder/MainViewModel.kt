@@ -13,6 +13,7 @@ class MainViewModel : ViewModel() {
     val formState = FormState(
         fields = listOf(
             ChoiceState(
+                initial = "Male",
                 name = "gender",
                 validators = listOf(Validators.Required(message = "you need to specify your gender"))
             ),
@@ -38,6 +39,7 @@ class MainViewModel : ViewModel() {
                 validators = listOf(Validators.Required(message = "how happy are you?"))
             ),
             SelectState(
+                initial = mutableListOf("Chess"),
                 name = "hobbies",
                 validators = listOf(
                     Validators.Required(message = "pick at least one hobby")
