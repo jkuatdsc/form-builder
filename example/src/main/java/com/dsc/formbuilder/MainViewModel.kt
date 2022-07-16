@@ -18,6 +18,7 @@ class MainViewModel : ViewModel() {
             ),
             TextFieldState(
                 name = "email",
+                initial = "name@mail.com",
                 transform = { it.trim().lowercase() },
                 validators = listOf(Validators.Email()),
             ),
@@ -27,6 +28,7 @@ class MainViewModel : ViewModel() {
             ),
             TextFieldState(
                 name = "age",
+                initial = "18",
                 transform = { it.toInt() },
                 validators = listOf(Validators.MinValue(limit = 18, message = "too young"))
             ),

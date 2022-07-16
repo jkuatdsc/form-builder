@@ -32,24 +32,13 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun Content() {
         val formState: FormState<BaseState<out Any>> = remember { viewModel.formState }
-        val ageState: TextFieldState = formState.getState<TextFieldState>("age").also {
-            it.change(23.toString())
-        }
-        val emailState: TextFieldState = formState.getState<TextFieldState>("email").also {
-            it.change("example@gmail.com")
-        }
-        val passwordState: TextFieldState = formState.getState<TextFieldState>("password").also {
-            it.change("123456")
-        }
-        val genderState: ChoiceState = formState.getState<ChoiceState>("gender").also {
-            it.change("Male")
-        }
-        val happinessState: TextFieldState = formState.getState<TextFieldState>("happiness").also {
-            it.change(0.1.toString())
-        }
-        val hobbiesState: SelectState = formState.getState<SelectState>("hobbies").also {
-            it.select("Reading")
-        }
+        val ageState: TextFieldState = formState.getState("age")
+        val genderState: ChoiceState = formState.getState("gender")
+        val emailState: TextFieldState = formState.getState("email")
+        val passwordState: TextFieldState = formState.getState("password")
+        val happinessState: TextFieldState = formState.getState("happiness")
+        val hobbiesState: SelectState = formState.getState<SelectState>("hobbies")
+
         val scrollState = rememberScrollState()
 
         Column(

@@ -5,6 +5,8 @@ package com.dsc.form_builder
  * In this case the user is limited to a single choice.
  * Only [Validators.Required] and [Validators.Custom] are supported for this class.
  *
+ * @param initial the initial value/state of the field. By default this is an empty string so none of the choices are selected.
+ *
  * @param name the name of the state used to get an instance of the state from the form builder.
  * using the [FormBuilder.getState] method.
  *
@@ -17,9 +19,10 @@ package com.dsc.form_builder
  */
 class ChoiceState(
     name: String,
+    initial: String = "",
     validators: List<Validators>,
     transform: Transform<String>? = null,
-) : TextFieldState(name = name, validators = validators, transform = transform) {
+) : TextFieldState(initial = initial, name = name, validators = validators, transform = transform) {
 
     /**
      * This function all [validators] passed in to th state class against the state's value.

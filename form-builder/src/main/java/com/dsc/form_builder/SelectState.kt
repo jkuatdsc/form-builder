@@ -6,6 +6,8 @@ import androidx.compose.runtime.mutableStateListOf
  * SelectState is a state class that holds the selected values from a selection such as checkboxes.
  * In this case the user can make several selections and the state will hold the selected values.
  *
+ * @param initial the initial value/state of the field. By default it is an empty list so no values are selected.
+ *
  * @param name the name of the state used to get an instance of the state from the form builder.
  * using the [FormBuilder.getState] method.
  *
@@ -18,16 +20,17 @@ import androidx.compose.runtime.mutableStateListOf
  */
 class SelectState(
     name: String,
+    initial: MutableList<String> = mutableListOf(),
     transform: Transform<MutableList<String>>? = null,
     validators: List<Validators> = listOf()
-) : BaseState<MutableList<String>>(name = name, transform = transform, validators) {
+) : BaseState<MutableList<String>>(initial = initial, name = name, transform = transform, validators) {
 
     /**
      * The variable that holds the selected values of the state.
      * This variable should only be updated via the [select] and [unselect] method.
      *
      */
-    override var value: MutableList<String> = mutableStateListOf()
+    override var value: MutableList<String> = initial
 
     /**
      * This function adds the selected item to the state. It also hides the error message.
