@@ -22,7 +22,7 @@ Then add the following to your module's `build.gradle`
 
 ```groovy
 dependencies {
-    implementation 'com.github.jkuatdsc.form-builder:form-builder:${version}'
+    implementation 'com.github.jkuatdsc:form-builder:${version}'
 }
 ```
 
