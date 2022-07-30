@@ -1,6 +1,7 @@
 package com.dsc.form_builder
 
-import androidx.compose.runtime.mutableStateListOf
+import android.util.Log
+import androidx.compose.runtime.*
 
 /**
  * SelectState is a state class that holds the selected values from a selection such as checkboxes.
@@ -30,7 +31,7 @@ class SelectState(
      * This variable should only be updated via the [select] and [unselect] method.
      *
      */
-    override var value: MutableList<String> = initial
+    override var value: MutableList<String> = initial.toMutableStateList()
 
     /**
      * This function adds the selected item to the state. It also hides the error message.

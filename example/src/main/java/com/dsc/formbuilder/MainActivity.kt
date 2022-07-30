@@ -35,9 +35,9 @@ class MainActivity : ComponentActivity() {
         val ageState: TextFieldState = formState.getState("age")
         val genderState: ChoiceState = formState.getState("gender")
         val emailState: TextFieldState = formState.getState("email")
+        val hobbiesState: SelectState = formState.getState("hobbies")
         val passwordState: TextFieldState = formState.getState("password")
         val happinessState: TextFieldState = formState.getState("happiness")
-        val hobbiesState: SelectState = formState.getState<SelectState>("hobbies")
 
         val scrollState = rememberScrollState()
 
