@@ -25,12 +25,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Content()
+            MainActivityContent()
         }
     }
 
     @Composable
-    fun Content() {
+    fun MainActivityContent() {
         val formState: FormState<BaseState<out Any>> = remember { viewModel.formState }
         val ageState: TextFieldState = formState.getState("age")
         val genderState: ChoiceState = formState.getState("gender")
@@ -50,28 +50,21 @@ class MainActivity : ComponentActivity() {
 
             ) {
 
-            OutlinedTextField(
-                value = emailState.value,
-                isError = emailState.hasError,
-                label = { Text("Email address") },
-                onValueChange = { emailState.change(it) }
-            )
+            //email
+            TextInput(state = emailState, label = "Email")
 
             if (emailState.hasError) Text(emailState.errorMessage, color = Color.Red)
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            OutlinedTextField(
-                value = passwordState.value,
-                isError = passwordState.hasError,
-                label = { Text("Password") },
-                onValueChange = { passwordState.change(it) }
-            )
+            //password
+            TextInput(state = passwordState, label = "Password")
 
             if (passwordState.hasError) Text(passwordState.errorMessage, color = Color.Red)
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            //age
             OutlinedTextField(
                 value = ageState.value,
                 isError = ageState.hasError,
@@ -83,19 +76,24 @@ class MainActivity : ComponentActivity() {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            //gender
             SelectGender(genderState = genderState)
 
             if (genderState.hasError) Text(genderState.errorMessage, color = Color.Red)
 
             Spacer(modifier = Modifier.height(20.dp))
+
+            //happiness index
             HappinessIndex(happinessState = happinessState)
 
             if (happinessState.hasError) Text(happinessState.errorMessage, color = Color.Red)
 
+            //hobbies
             Hobbies(hobbyState = hobbiesState)
 
             if (hobbiesState.hasError) Text(hobbiesState.errorMessage, color = Color.Red)
 
+            //submit button
             Button(
                 modifier = Modifier.padding(16.dp),
                 onClick = { viewModel.submit() },
@@ -152,16 +150,28 @@ class MainActivity : ComponentActivity() {
         )
         Text(text = "Hobbies")
 
-        hobbiesList.forEach { hobby ->
-            Row(Modifier.fillMaxWidth()) {
-                Checkbox(
-                    checked = hobbyState.value.contains(hobby),
-                    onCheckedChange = {
-                        if (it) hobbyState.select(hobby) else hobbyState.unselect(hobby)
-                    }
-                )
-                Text(text = hobby, modifier = Modifier.padding(top = 14.dp))
+        Column(modifier = Modifier.selectableGroup()) {
+            hobbiesList.forEach { hobby ->
+                Row(Modifier.fillMaxWidth()) {
+                    Checkbox(
+                        checked = hobbyState.value.contains(hobby),
+                        onCheckedChange = {
+                            if (it) hobbyState.select(hobby) else hobbyState.unselect(hobby)
+                        }
+                    )
+                    Text(text = hobby, modifier = Modifier.padding(top = 14.dp))
+                }
             }
         }
+    }
+
+    @Composable
+    fun TextInput(state: TextFieldState, label: String) {
+        OutlinedTextField(
+            value = state.value,
+            isError = state.hasError,
+            label = { Text(label) },
+            onValueChange = { state.change(it) }
+        )
     }
 }
