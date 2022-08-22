@@ -9,8 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FormBuilder">
+
         <activity
             android:name=".screens.ExitActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".screens.survey.SurveyActivity"
             android:exported="false" />
 
         <activity
