@@ -1,6 +1,5 @@
 package com.dsc.form_builder
 
-import android.util.Patterns
 import androidx.compose.runtime.*
 
 /**
@@ -36,9 +35,9 @@ open class TextFieldState(
      * Once the [value] changes it clears errors by the help of
      * [BaseState.hideError]
      */
-    fun change(value: String) {
+    fun change(update: String) {
         hideError()
-        this.value = value
+        this.value = update
     }
 
     /**
@@ -83,8 +82,9 @@ open class TextFieldState(
      *The implementation makes use of the [android.util.Patterns] class to match the email address.
      *@param message the error message passed to [showError] to display if the value is not a valid email address. By default we use the [EMAIL_MESSAGE] constant.
      */
-    private fun validateEmail(message: String): Boolean {
-        val valid = Patterns.EMAIL_ADDRESS.matcher(value).matches()
+    internal fun validateEmail(message: String): Boolean {
+        val emailRegex = "^[A-Za-z](.*)([@])(.+)(\\.)(.+)"
+        val valid = emailRegex.toRegex().matches(value)
         if (!valid) showError(message)
         return valid
     }
@@ -106,7 +106,7 @@ open class TextFieldState(
      * @param limit the maximum characters that [value] can hold.
      * @param message the error message passed to [showError] to display if the characters are greater than the limit.
      */
-    private fun validateMaxChars(limit: Int, message: String): Boolean {
+    internal fun validateMaxChars(limit: Int, message: String): Boolean {
         val valid = value.length <= limit
         if (!valid) showError(message)
         return valid
@@ -118,7 +118,7 @@ open class TextFieldState(
      * @param limit the least number of characters that [value] can hold.
      * @param message the error message passed to [showError] to display if the characters are lesser than the limit.
      */
-    private fun validateMinChars(limit: Int, message: String): Boolean {
+    internal fun validateMinChars(limit: Int, message: String): Boolean {
         val valid = value.length >= limit
         if (!valid) showError(message)
         return valid
@@ -131,7 +131,7 @@ open class TextFieldState(
      * @param limit the least numeric value that [value] can hold.
      * @param message the error message passed to [showError] to display if the numeric value is lesser than the limit.
      */
-    private fun validateMinValue(limit: Int, message: String): Boolean {
+    internal fun validateMinValue(limit: Int, message: String): Boolean {
         val valid = value.isNumeric() && value.toDouble() >= limit
         if (!valid) showError(message)
         return valid
@@ -143,7 +143,7 @@ open class TextFieldState(
      * @param limit the greatest numeric value that [value] can hold.
      * @param message the error message passed to [showError] to display if the numeric value is greater than the limit.
      */
-    private fun validateMaxValue(limit: Int, message: String): Boolean {
+    internal fun validateMaxValue(limit: Int, message: String): Boolean {
         val valid = value.isNumeric() && value.toDouble() <= limit
         if (!valid) showError(message)
         return valid

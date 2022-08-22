@@ -1,6 +1,5 @@
 package com.dsc.form_builder
 
-import android.util.Log
 import androidx.compose.runtime.*
 
 /**
@@ -10,7 +9,7 @@ import androidx.compose.runtime.*
  * @param initial the initial value/state of the field. By default it is an empty list so no values are selected.
  *
  * @param name the name of the state used to get an instance of the state from the form builder.
- * using the [FormBuilder.getState] method.
+ * using the [FormState.getState] method.
  *
  * @param transform the transformation function used to transform the values of the state to a desired type.
  * This function will be applied to the value before it is returned.
