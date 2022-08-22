@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FormBuilder">
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.ExitActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".screens.IntroActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.FormBuilder.NoActionBar">
+            android:theme="@style/Theme.FormBuilder">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
