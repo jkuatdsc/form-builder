@@ -13,4 +13,12 @@ class SurveyViewmodel: ViewModel(){
     fun navigate(screen: Int){
         _screen.value = screen
     }
+
+    fun validateSurvey() {
+        // TODO: Implement validation
+    }
+
+    fun validateScreen(screen: Int){
+        // TODO: Implement validation
+    }
 }
