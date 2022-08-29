@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Form Builder</string>
+    <string name="start">Start</string>
+    <string name="validate">Validate on each screen</string>
+    <string name="thanks">Thanks for your participation</string>
+    <string name="restart">Refill the form</string>
 </resources>
