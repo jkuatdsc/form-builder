@@ -10,6 +10,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
@@ -65,6 +66,7 @@ fun IntroScreen(modifier: Modifier = Modifier) {
     val white = MaterialTheme.colors.background
     val context = LocalContext.current
     val intent = Intent(context, SurveyActivity::class.java)
+    val interactionSource = remember { MutableInteractionSource() }
 
     Column(
         modifier = modifier
@@ -109,7 +111,10 @@ fun IntroScreen(modifier: Modifier = Modifier) {
                     .width(pulseMagnitude.dp)
                     .padding(all = 12.dp)
                     .background(color = white)
-                    .clickable(onClick = {
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = {
                         context.startActivity(intent)
                     }),
                 elevation = 5.dp,
