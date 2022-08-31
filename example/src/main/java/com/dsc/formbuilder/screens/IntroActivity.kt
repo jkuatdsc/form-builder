@@ -8,14 +8,12 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -24,9 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,19 +37,14 @@ class IntroActivity : ComponentActivity() {
         setContent {
             FormBuilderTheme {
                 val screenState = remember {
-                    MutableTransitionState(false).apply {
-                        targetState = true
-                    }
+                    MutableTransitionState(false).apply { targetState = true }
                 }
                 AnimatedVisibility(
                     visibleState = screenState,
+                    content = { IntroScreen() },
                     enter = slideInHorizontally(),
                     exit = slideOutHorizontally()
-                ) {
-                    Surface(color = MaterialTheme.colors.background) {
-                        IntroScreen()
-                    }
-                }
+                )
             }
         }
     }
@@ -64,81 +54,66 @@ class IntroActivity : ComponentActivity() {
 fun IntroScreen(modifier: Modifier = Modifier) {
     val black = MaterialTheme.colors.onPrimary
     val white = MaterialTheme.colors.background
+
     val context = LocalContext.current
-    val intent = Intent(context, SurveyActivity::class.java)
+    var checked by remember { mutableStateOf(true) }
     val interactionSource = remember { MutableInteractionSource() }
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(12.dp),
+        modifier = Modifier.fillMaxSize().padding(12.dp),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = modifier.height(150.dp))
+        Spacer(modifier = Modifier.height(150.dp))
 
-        Box(
-            modifier
-                .size(300.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            //this box prevents the animation from mis-positioning the other elements in the column
-
+        Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.Center) {
             val infiniteTransition = rememberInfiniteTransition()
+            val animationSpec: InfiniteRepeatableSpec<Float> = infiniteRepeatable(
+                animation = tween(1000),
+                repeatMode = RepeatMode.Reverse
+            )
 
             val pulseMagnitude by infiniteTransition.animateFloat(
                 initialValue = 240f,
                 targetValue = 270f,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(1000),
-                    repeatMode = RepeatMode.Reverse
-                )
+                animationSpec = animationSpec
             )
 
             val textSizeInfinite = infiniteTransition.animateFloat(
                 initialValue = MaterialTheme.typography.h4.fontSize.value,
                 targetValue = MaterialTheme.typography.h3.fontSize.value,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(1000),
-                    repeatMode = RepeatMode.Reverse
-                )
+                animationSpec = animationSpec
             )
 
-            // The start Button
             Card(
-                modifier
-                    .height(pulseMagnitude.dp)
-                    .width(pulseMagnitude.dp)
+                elevation = 5.dp,
+                shape = CircleShape,
+                modifier = Modifier
+                    .size(pulseMagnitude.dp)
                     .padding(all = 12.dp)
-                    .background(color = white)
                     .clickable(
                         interactionSource = interactionSource,
                         indication = null,
                         onClick = {
-                        context.startActivity(intent)
-                    }),
-                elevation = 5.dp,
-                shape = CircleShape
+                            val intent = Intent(context, SurveyActivity::class.java)
+                            intent.putExtra("validate", checked)
+                            context.startActivity(intent)
+                        },
+                    ),
             ) {
-                Box(
-                    modifier = modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(
-                        text = stringResource(id = R.string.start),
                         textAlign = TextAlign.Center,
-                        fontFamily = FontFamily.SansSerif,
-                        fontSize = textSizeInfinite.value.sp
+                        text = stringResource(id = R.string.start),
+                        style = MaterialTheme.typography.button.copy(
+                            fontSize = textSizeInfinite.value.sp
+                        )
                     )
                 }
             }
         }
-        Box(
-            modifier = modifier
-                .size(300.dp),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            var switchOn by remember { mutableStateOf(true) }
+
+        Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.BottomCenter) {
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -150,11 +125,13 @@ fun IntroScreen(modifier: Modifier = Modifier) {
                 Spacer(modifier = modifier.width(24.dp))
 
                 Switch(
-                    modifier = modifier.semantics { contentDescription = "Switch" },
-                    checked = switchOn,
-                    onCheckedChange = { switchOn = it },
+                    checked = checked,
+                    onCheckedChange = { checked = it },
                     colors = SwitchDefaults.colors(
-                        checkedTrackColor = black
+                        checkedTrackColor = black,
+                        uncheckedTrackColor = white,
+                        uncheckedThumbColor = black,
+                        uncheckedBorderColor = black,
                     )
                 )
             }
@@ -166,8 +143,6 @@ fun IntroScreen(modifier: Modifier = Modifier) {
 @Composable
 fun IntroPreview() {
     FormBuilderTheme {
-        Surface(color = MaterialTheme.colors.background) {
-            IntroScreen()
-        }
+        IntroScreen()
     }
 }
