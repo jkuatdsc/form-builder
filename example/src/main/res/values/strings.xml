@@ -3,5 +3,5 @@
     <string name="start">Start</string>
     <string name="validate">Validate on each screen</string>
     <string name="thanks">Thanks for your participation</string>
-    <string name="restart">Refill the form</string>
+    <string name="restart">Back to Start</string>
 </resources>
