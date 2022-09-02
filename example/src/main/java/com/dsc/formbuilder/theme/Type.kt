@@ -26,12 +26,12 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
     ),
     caption = TextStyle(
-        fontSize = 10.sp,
+        fontSize = 12.sp,
         fontFamily = interFontFamily,
         fontWeight = FontWeight.Light,
     ),
     button = TextStyle(
-        fontSize = 12.sp,
+        fontSize = 14.sp,
         fontFamily = interFontFamily,
         fontWeight = FontWeight.Normal,
     ),
