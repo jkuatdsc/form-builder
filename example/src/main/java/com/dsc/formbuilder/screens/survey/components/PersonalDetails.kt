@@ -37,34 +37,36 @@ fun PersonalDetails(formState: FormState<BaseState<*>>) {
         Spacer(modifier = Modifier.height(30.dp))
 
         TextInput(label = "Username", state = usernameState)
-        if (usernameState.hasError) Text(usernameState.errorMessage, color = Color.Red)
 
         Spacer(modifier = Modifier.height(10.dp))
 
         TextInput(label = "Email", state = emailState)
-        if (emailState.hasError) Text(emailState.errorMessage, color = Color.Red)
 
         Spacer(modifier = Modifier.height(10.dp))
 
         TextInput(label = "Number", state = numberState)
-        if (numberState.hasError) Text(numberState.errorMessage, color = Color.Red)
+
     }
 }
 
 @Composable
 fun TextInput(label: String, state: TextFieldState) {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        value = state.value,
-        onValueChange = { state.change(it) },
-        isError = state.hasError,
-        label = { Text(text = label) },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = MaterialTheme.colors.onPrimary,
-            unfocusedBorderColor = MaterialTheme.colors.onPrimary
+
+    Column {
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            value = state.value,
+            onValueChange = { state.change(it) },
+            isError = state.hasError,
+            label = { Text(text = label) },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = MaterialTheme.colors.onPrimary,
+                unfocusedBorderColor = MaterialTheme.colors.onPrimary
+            )
         )
-    )
+        if (state.hasError) Text(state.errorMessage, color = Color.Red)
+    }
 }
 
 
