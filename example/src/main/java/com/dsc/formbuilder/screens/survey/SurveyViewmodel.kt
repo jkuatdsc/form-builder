@@ -23,7 +23,7 @@ class SurveyViewmodel : ViewModel() {
         // TODO: Implement validation
     }
 
-    val formState1: FormState<BaseState<*>> = FormState(
+    val formState: FormState<BaseState<*>> = FormState(
         fields = listOf(
             TextFieldState(
                 name = "username",
@@ -52,33 +52,19 @@ class SurveyViewmodel : ViewModel() {
                         function = { correctNum(it.toString()) }
                     )
                 )
-            )
-        )
-    )
-
-    private fun correctNum(value: String): Boolean {
-        return value.length == 13
-    }
-
-    val formState2: FormState<BaseState<*>> = FormState(
-        fields = listOf(
+            ),
             SelectState(
                 name = "platform",
                 validators = listOf(Validators.Required(message = "pick at least one platform"))
             ),
             SelectState(
-                name = "languages",
+                name = "language",
                 validators = listOf(Validators.Required(message = "pick at least one language"))
             ),
             SelectState(
-                name = "ides",
+                name = "ide",
                 validators = listOf(Validators.Required(message = "pick at least one IDE"))
-            )
-        )
-    )
-
-    val formState3: FormState<BaseState<*>> = FormState(
-        fields = listOf(
+            ),
             ChoiceState(
                 name = "gender",
                 validators = listOf(Validators.Required(message = "please select your gender"))
@@ -93,4 +79,9 @@ class SurveyViewmodel : ViewModel() {
             )
         )
     )
+
+    private fun correctNum(value: String): Boolean {
+        return value.length == 13
+    }
+
 }
