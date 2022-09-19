@@ -23,6 +23,7 @@ class SurveyActivity : ComponentActivity() {
         setContent {
             FormBuilderTheme {
                 val screen by remember { viewmodel.screen }
+                val formState = remember { viewmodel.formState }
                 val validate = intent.getBooleanExtra("validate", true)
 
                 Column(
@@ -32,11 +33,11 @@ class SurveyActivity : ComponentActivity() {
                 ) {
                     TabLayout(screen = screen)
 
-//                    when(screen){
-//                        0 -> PersonalDetails(formState = formstate)
-//                        1 -> TechnicalDetails(formState = formstate)
-//                        3 -> OtherDetails(formState = formstate)
-//                    }
+                    when(screen){
+                        0 -> PersonalDetails(formState = formState)
+                        1 -> TechnicalDetails(formState = formState)
+                        2 -> OtherDetails(formState = formState)
+                    }
 
                     Navigation(screen = screen) {
                         if (validate) {
