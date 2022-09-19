@@ -11,6 +11,9 @@ class SurveyViewmodel : ViewModel() {
     private val _screen: MutableState<Int> = mutableStateOf(0)
     val screen: State<Int> = _screen
 
+    private val _finish: MutableState<Boolean> = mutableStateOf(false)
+    val finish: State<Boolean> = _finish
+
     val formState: FormState<BaseState<*>> = FormState(
         fields = listOf(
             TextFieldState(
@@ -73,7 +76,11 @@ class SurveyViewmodel : ViewModel() {
     }
 
     fun validateSurvey() {
-        // TODO: Implement validation
+        val pages: List<List<Int>> = (0..5).chunked(3)
+        if (!formState.validate()){
+            val position = formState.fields.indexOfFirst { it.hasError }
+            _screen.value = pages.indexOfFirst { it.contains(position) }
+        } else _finish.value = true
     }
 
     fun validateScreen(screen: Int) {
