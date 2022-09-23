@@ -6,6 +6,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dsc.form_builder.BaseState
@@ -20,8 +22,8 @@ fun TechnicalDetails(formState: FormState<BaseState<*>>) {
     val languageSelectState: SelectState = formState.getState("language")
     val ideSelectState: SelectState = formState.getState("ide")
 
-    val platforms = listOf("Android", "IOS", "Web")
-    val languages = listOf("Javascript", "Kotlin", "Swift")
+    val platforms = listOf("      Android      ", "IOS", "Web")
+    val languages = listOf("    Javascript    ", "Kotlin", "Swift")
     val ides = listOf("Android Studio", "Xcode", "Vs code")
 
     Column(
@@ -50,40 +52,49 @@ fun TechnicalDetails(formState: FormState<BaseState<*>>) {
 
 @Composable
 fun TechnicalDetailsRow(labelText: String, items: List<String>, state: SelectState) {
-    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        Text(text = labelText, style = MaterialTheme.typography.body1)
+    Column {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(text = labelText, style = MaterialTheme.typography.body1)
 
-        Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f))
 
-        items.forEach { item ->
-            Column(
-                modifier = Modifier
-                    .padding(4.dp)
-                    .selectableGroup(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = item,
-                    style = MaterialTheme.typography.caption
-                )
-                Checkbox(
-                    checked = state.value.contains(item),
-                    onCheckedChange = {
-                        if (it) state.select(item) else state.unselect(item)
-                    },
-                    colors = CheckboxDefaults.colors(
-                        uncheckedColor = MaterialTheme.colors.onPrimary,
-                        checkedColor = MaterialTheme.colors.onPrimary
+            items.forEach { item ->
+                Column(
+                    modifier = Modifier.width(85.dp).selectableGroup(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = item,
+                        style = MaterialTheme.typography.caption
                     )
-                )
+                    Checkbox(
+                        checked = state.value.contains(item),
+                        onCheckedChange = {
+                            if (it) state.select(item) else state.unselect(item)
+                        },
+                        colors = CheckboxDefaults.colors(
+                            uncheckedColor = MaterialTheme.colors.onPrimary,
+                            checkedColor = MaterialTheme.colors.onPrimary
+                        )
+                    )
+                }
             }
+        }
+
+        if (state.hasError) {
+            Text(
+                text = state.errorMessage,
+                style = MaterialTheme.typography.caption.copy(
+                    color = Color.Red
+                )
+            )
         }
     }
 }
 
 
-@Preview
+@Preview(device = Devices.PIXEL_3)
 @Composable
 fun TechnicalDetailsPreview() {
 

@@ -7,6 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Device
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dsc.form_builder.BaseState
@@ -46,31 +49,40 @@ fun OtherDetails(formState: FormState<BaseState<*>>) {
 
 @Composable
 fun OtherDetailsRow(labelText: String, items: List<String>, state: ChoiceState) {
-    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        Text(text = labelText, style = MaterialTheme.typography.body1)
+    Column {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(text = labelText, style = MaterialTheme.typography.body1)
 
-        Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f))
 
-        items.forEach { item ->
-            Column(
-                modifier = Modifier
-                    .padding(4.dp)
-                    .selectableGroup(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = CenterHorizontally
-            ) {
-                Text(
-                    text = item, style = MaterialTheme.typography.caption
-                )
-                RadioButton(
-                    selected = state.value == item,
-                    onClick = { state.change(item) },
-                    colors = RadioButtonDefaults.colors(
-                        unselectedColor = MaterialTheme.colors.onPrimary,
-                        selectedColor = MaterialTheme.colors.onPrimary
+            items.forEach { item ->
+                Column(
+                    modifier = Modifier.width(85.dp).selectableGroup(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = CenterHorizontally
+                ) {
+                    Text(
+                        text = item, style = MaterialTheme.typography.caption
                     )
-                )
+                    RadioButton(
+                        selected = state.value == item,
+                        onClick = { state.change(item) },
+                        colors = RadioButtonDefaults.colors(
+                            unselectedColor = MaterialTheme.colors.onPrimary,
+                            selectedColor = MaterialTheme.colors.onPrimary
+                        )
+                    )
+                }
             }
+        }
+
+        if (state.hasError) {
+            Text(
+                text = state.errorMessage,
+                style = MaterialTheme.typography.caption.copy(
+                    color = Color.Red
+                )
+            )
         }
     }
 }

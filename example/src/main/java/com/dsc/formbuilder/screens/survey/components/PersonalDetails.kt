@@ -54,18 +54,27 @@ fun TextInput(label: String, state: TextFieldState) {
 
     Column {
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
             value = state.value,
-            onValueChange = { state.change(it) },
             isError = state.hasError,
             label = { Text(text = label) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            onValueChange = { state.change(it) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = MaterialTheme.colors.onPrimary,
                 unfocusedBorderColor = MaterialTheme.colors.onPrimary
             )
         )
-        if (state.hasError) Text(state.errorMessage, color = Color.Red)
+
+        if (state.hasError) {
+            Text(
+                text = state.errorMessage,
+                modifier = Modifier.padding(start = 12.dp, top = 4.dp),
+                style = MaterialTheme.typography.caption.copy(
+                    color = Color.Red
+                )
+            )
+        }
     }
 }
 
