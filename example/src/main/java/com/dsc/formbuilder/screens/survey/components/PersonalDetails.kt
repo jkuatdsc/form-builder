@@ -1,10 +1,12 @@
 package com.dsc.formbuilder.screens.survey.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,14 +22,7 @@ fun PersonalDetails(formState: FormState<BaseState<*>>) {
     val emailState: TextFieldState = formState.getState("email")
     val numberState: TextFieldState = formState.getState("number")
 
-    Column(
-        modifier = Modifier
-            .padding(12.dp)
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
+    Column(verticalArrangement = Center, horizontalAlignment = CenterHorizontally) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "Personal Details",

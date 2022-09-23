@@ -1,6 +1,7 @@
 package com.dsc.formbuilder.screens.survey.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -28,11 +29,8 @@ fun OtherDetails(formState: FormState<BaseState<*>>) {
     val genderOptions = listOf("Non-binary", "Male", "Female")
     val experienceOptions = listOf("1-3 Years", "3-5 Years", "5+ Years")
     val osOptions = listOf("Mac OS", "Linux", "Windows")
-    Column(
-        modifier = Modifier.padding(12.dp),
-        horizontalAlignment = CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+
+    Column(horizontalAlignment = CenterHorizontally, verticalArrangement = Center) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "Other Details",
@@ -58,7 +56,7 @@ fun OtherDetailsRow(labelText: String, items: List<String>, state: ChoiceState) 
             items.forEach { item ->
                 Column(
                     modifier = Modifier.width(85.dp).selectableGroup(),
-                    verticalArrangement = Arrangement.Center,
+                    verticalArrangement = Center,
                     horizontalAlignment = CenterHorizontally
                 ) {
                     Text(

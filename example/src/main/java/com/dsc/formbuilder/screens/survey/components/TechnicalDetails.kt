@@ -1,10 +1,12 @@
 package com.dsc.formbuilder.screens.survey.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
@@ -26,14 +28,7 @@ fun TechnicalDetails(formState: FormState<BaseState<*>>) {
     val languages = listOf("    Javascript    ", "Kotlin", "Swift")
     val ides = listOf("Android Studio", "Xcode", "Vs code")
 
-    Column(
-        modifier = Modifier
-            .padding(12.dp)
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
+    Column(horizontalAlignment = CenterHorizontally, verticalArrangement = Center) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "Technical Details",
@@ -61,8 +56,8 @@ fun TechnicalDetailsRow(labelText: String, items: List<String>, state: SelectSta
             items.forEach { item ->
                 Column(
                     modifier = Modifier.width(85.dp).selectableGroup(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    verticalArrangement = Center,
+                    horizontalAlignment = CenterHorizontally
                 ) {
                     Text(
                         text = item,
