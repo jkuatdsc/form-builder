@@ -85,7 +85,10 @@ class SurveyViewmodel : ViewModel() {
 
     fun validateScreen(screen: Int) {
         val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
-        // TODO: Implement validation
+        if (fields.all { it.validate() }){
+            if (screen == 2) _finish.value = true
+            _screen.value +=1
+        }
     }
 
     private fun correctNum(value: String): Boolean {
