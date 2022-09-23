@@ -27,7 +27,7 @@ abstract class BaseState<T>(
      * This is the state of the field. It can be anything specified by the extending class. For instance, for a [TextFieldState] it can be a [String] and for [SelectState] it can be a [List] of [String]s.
      */
     abstract var value: T
-     internal set
+        internal set
 
     /**
      * This is the error message that is displayed when the field is invalid. You can access this property in order to display the error in the UI.
@@ -60,7 +60,7 @@ abstract class BaseState<T>(
     /**
      * This function is the basic validation method. It is called by the [FormState] class when the validation is requested. It basically runs all the validations from the specified [validators] list and if any of them fail, the [showError] is called to set the error state. Otherwise, it returns [true] to denote a valid form.
      */
-    internal abstract fun validate(): Boolean
+    abstract fun validate(): Boolean
 
     /**
      * This function is used to get the data in the field. It is called by the [FormState] class when the form is submitted. It calls the [transform] function to convert the data to whatever type is specified.
