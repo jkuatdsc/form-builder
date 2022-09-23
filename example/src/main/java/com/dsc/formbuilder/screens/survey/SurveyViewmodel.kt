@@ -11,17 +11,8 @@ class SurveyViewmodel : ViewModel() {
     private val _screen: MutableState<Int> = mutableStateOf(0)
     val screen: State<Int> = _screen
 
-    fun navigate(screen: Int) {
-        _screen.value = screen
-    }
-
-    fun validateSurvey() {
-        // TODO: Implement validation
-    }
-
-    fun validateScreen(screen: Int) {
-        // TODO: Implement validation
-    }
+    private val _finish: MutableState<Boolean> = mutableStateOf(false)
+    val finish: State<Boolean> = _finish
 
     val formState: FormState<BaseState<*>> = FormState(
         fields = listOf(
@@ -79,6 +70,26 @@ class SurveyViewmodel : ViewModel() {
             )
         )
     )
+
+    fun navigate(screen: Int) {
+        _screen.value = screen
+    }
+
+    fun validateSurvey() {
+        val pages: List<List<Int>> = (0..5).chunked(3)
+        if (!formState.validate()){
+            val position = formState.fields.indexOfFirst { it.hasError }
+            _screen.value = pages.indexOfFirst { it.contains(position) }
+        } else _finish.value = true
+    }
+
+    fun validateScreen(screen: Int) {
+        val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
+        if (fields.map { it.validate() }.all { it }){ // map is used so we can execute validate() on all fields in that screen
+            if (screen == 2) _finish.value = true
+            _screen.value +=1
+        }
+    }
 
     private fun correctNum(value: String): Boolean {
         return value.length == 13

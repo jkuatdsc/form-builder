@@ -71,7 +71,7 @@ OutlinedTextField(
     label = { Text("Email address") },
     onValueChange = { emailState.change(it) }
 )
-if (emailState.hasError) Text(emailState.errorMessage, color = Color.Red)
+if (emailState.hasError) Text(emailState.errorMessage, color = MaterialTheme.colors.error)
 ```
 
 We can get individual states for the fields using the `getState` function in the FormState class. We can then access

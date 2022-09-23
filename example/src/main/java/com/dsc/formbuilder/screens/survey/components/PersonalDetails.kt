@@ -1,10 +1,12 @@
 package com.dsc.formbuilder.screens.survey.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,14 +22,7 @@ fun PersonalDetails(formState: FormState<BaseState<*>>) {
     val emailState: TextFieldState = formState.getState("email")
     val numberState: TextFieldState = formState.getState("number")
 
-    Column(
-        modifier = Modifier
-            .padding(12.dp)
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
+    Column(verticalArrangement = Center, horizontalAlignment = CenterHorizontally) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "Personal Details",
@@ -54,18 +49,28 @@ fun TextInput(label: String, state: TextFieldState) {
 
     Column {
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
             value = state.value,
-            onValueChange = { state.change(it) },
             isError = state.hasError,
             label = { Text(text = label) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            onValueChange = { state.change(it) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
+                errorBorderColor = MaterialTheme.colors.error,
                 focusedBorderColor = MaterialTheme.colors.onPrimary,
                 unfocusedBorderColor = MaterialTheme.colors.onPrimary
             )
         )
-        if (state.hasError) Text(state.errorMessage, color = Color.Red)
+
+        if (state.hasError) {
+            Text(
+                text = state.errorMessage,
+                modifier = Modifier.padding(start = 12.dp, top = 4.dp),
+                style = MaterialTheme.typography.caption.copy(
+                    color = MaterialTheme.colors.error
+                )
+            )
+        }
     }
 }
 
