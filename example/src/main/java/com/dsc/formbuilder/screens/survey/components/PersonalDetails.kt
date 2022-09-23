@@ -61,6 +61,7 @@ fun TextInput(label: String, state: TextFieldState) {
             shape = RoundedCornerShape(16.dp),
             onValueChange = { state.change(it) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
+                errorBorderColor = MaterialTheme.colors.error,
                 focusedBorderColor = MaterialTheme.colors.onPrimary,
                 unfocusedBorderColor = MaterialTheme.colors.onPrimary
             )
@@ -71,7 +72,7 @@ fun TextInput(label: String, state: TextFieldState) {
                 text = state.errorMessage,
                 modifier = Modifier.padding(start = 12.dp, top = 4.dp),
                 style = MaterialTheme.typography.caption.copy(
-                    color = Color.Red
+                    color = MaterialTheme.colors.error
                 )
             )
         }

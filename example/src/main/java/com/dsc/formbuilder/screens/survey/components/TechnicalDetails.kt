@@ -86,7 +86,7 @@ fun TechnicalDetailsRow(labelText: String, items: List<String>, state: SelectSta
             Text(
                 text = state.errorMessage,
                 style = MaterialTheme.typography.caption.copy(
-                    color = Color.Red
+                    color = MaterialTheme.colors.error
                 )
             )
         }

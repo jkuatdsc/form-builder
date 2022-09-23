@@ -80,7 +80,7 @@ fun OtherDetailsRow(labelText: String, items: List<String>, state: ChoiceState) 
             Text(
                 text = state.errorMessage,
                 style = MaterialTheme.typography.caption.copy(
-                    color = Color.Red
+                    color = MaterialTheme.colors.error
                 )
             )
         }

@@ -85,7 +85,7 @@ class SurveyViewmodel : ViewModel() {
 
     fun validateScreen(screen: Int) {
         val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
-        if (fields.all { it.validate() }){
+        if (fields.map { it.validate() }.all { it }){ // map is used so we can execute validate() on all fields in that screen
             if (screen == 2) _finish.value = true
             _screen.value +=1
         }
