@@ -53,6 +53,7 @@ open class TextFieldState(
         val validations = validators.map {
             when (it) {
                 is Validators.Email -> validateEmail(it.message)
+                is Validators.Phone -> validatePhone(it.message)
                 is Validators.Required -> validateRequired(it.message)
                 is Validators.Min -> validateMinChars(it.limit, it.message)
                 is Validators.Max -> validateMaxChars(it.limit, it.message)
@@ -85,6 +86,20 @@ open class TextFieldState(
     internal fun validateEmail(message: String): Boolean {
         val emailRegex = "^[A-Za-z](.*)([@])(.+)(\\.)(.+)"
         val valid = emailRegex.toRegex().matches(value)
+        if (!valid) showError(message)
+        return valid
+    }
+
+
+    /**
+     *This function validates a Phone in [value]
+     *It will return true if the string value is a valid phone number.
+     *The implementation makes use of the [android.util.Patterns] class to match the phone number.
+     *@param message the error message passed to [showError] to display if the value is not a valid phone number. By default we use the [PHONE_MESSAGE] constant.
+     */
+    internal fun validatePhone(message: String): Boolean {
+        val phoneRegex = "(\\+[0-9]+)?(\\([0-9]+\\)[\\- ]*)?([0-9][0-9\\- ]+[0-9])"
+        val valid = phoneRegex.toRegex().matches(value)
         if (!valid) showError(message)
         return valid
     }

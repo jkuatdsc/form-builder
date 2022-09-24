@@ -13,6 +13,15 @@ object EmailArgumentsProvider : ArgumentsProvider {
     )
 }
 
+object PhoneArgumentsProvider : ArgumentsProvider {
+    override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
+        Arguments.of("test", false),
+        Arguments.of("88005553535", true),
+        Arguments.of("+8(800) 555-35-35", true),
+        Arguments.of("8-800-555-35-35-", false),
+    )
+}
+
 object MinCharsArgumentsProvider: ArgumentsProvider {
     override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
         Arguments.of("test", 2, true),
