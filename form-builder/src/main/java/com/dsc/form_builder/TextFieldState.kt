@@ -54,6 +54,7 @@ open class TextFieldState(
             when (it) {
                 is Validators.Email -> validateEmail(it.message)
                 is Validators.Phone -> validatePhone(it.message)
+                is Validators.WebUrl -> validateWebUrl(it.message)
                 is Validators.Required -> validateRequired(it.message)
                 is Validators.Min -> validateMinChars(it.limit, it.message)
                 is Validators.Max -> validateMaxChars(it.limit, it.message)
@@ -100,6 +101,19 @@ open class TextFieldState(
     internal fun validatePhone(message: String): Boolean {
         val phoneRegex = "(\\+[0-9]+)?(\\([0-9]+\\)[\\- ]*)?([0-9][0-9\\- ]+[0-9])"
         val valid = phoneRegex.toRegex().matches(value)
+        if (!valid) showError(message)
+        return valid
+    }
+
+    /**
+     *This function validates a Web Url in [value]
+     *It will return true if the string value is a valid web url.
+     *@param message the error message passed to [showError] to display if the value is not a valid web url. By default we use the [WEB_URL_MESSAGE] constant.
+     */
+    internal fun validateWebUrl(message: String): Boolean {
+        val webUrlRegex =
+            "https?://(www\\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\\.[a-z]{2,4}\\b([-a-zA-Z0-9@:%_+.~#?&/=]*)"
+        val valid = webUrlRegex.toRegex().matches(value)
         if (!valid) showError(message)
         return valid
     }

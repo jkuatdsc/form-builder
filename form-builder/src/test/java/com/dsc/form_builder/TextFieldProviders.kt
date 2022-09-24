@@ -22,6 +22,17 @@ object PhoneArgumentsProvider : ArgumentsProvider {
     )
 }
 
+object WebUrlArgumentsProvider : ArgumentsProvider {
+    override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
+        Arguments.of("test", false),
+        Arguments.of("htt://www.test.com", false),
+        Arguments.of("http://test.com", true),
+        Arguments.of("https://www.test.com", true),
+        Arguments.of("www.test.", false),
+        Arguments.of("https://", false),
+    )
+}
+
 object MinCharsArgumentsProvider: ArgumentsProvider {
     override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
         Arguments.of("test", 2, true),

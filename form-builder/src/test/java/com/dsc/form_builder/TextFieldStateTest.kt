@@ -72,6 +72,15 @@ internal class TextFieldStateTest {
         }
 
         @ParameterizedTest
+        @ArgumentsSource(WebUrlArgumentsProvider::class)
+        fun `Validators_WebUrl works correctly`(webUrl: String, expected: Boolean) {
+            classToTest.change(webUrl)
+
+            val actual = classToTest.validateWebUrl("expected validation: $expected")
+            assert(actual == expected)
+        }
+
+        @ParameterizedTest
         @ArgumentsSource(MinCharsArgumentsProvider::class)
         fun `Validators_MinChars works correctly`(value: String, limit: Int, expected: Boolean) {
             classToTest.change(value)
