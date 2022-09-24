@@ -81,6 +81,15 @@ internal class TextFieldStateTest {
         }
 
         @ParameterizedTest
+        @ArgumentsSource(CardNumberArgumentsProvider::class)
+        fun `Validators_CardNumber works correctly`(cardNumber: String, expected: Boolean) {
+            classToTest.change(cardNumber)
+
+            val actual = classToTest.validateCardNumber("expected validation: $expected")
+            assert(actual == expected)
+        }
+
+        @ParameterizedTest
         @ArgumentsSource(MinCharsArgumentsProvider::class)
         fun `Validators_MinChars works correctly`(value: String, limit: Int, expected: Boolean) {
             classToTest.change(value)

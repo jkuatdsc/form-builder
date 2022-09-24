@@ -33,6 +33,14 @@ object WebUrlArgumentsProvider : ArgumentsProvider {
     )
 }
 
+object CardNumberArgumentsProvider : ArgumentsProvider {
+    override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
+        Arguments.of("1111111111111111", false),
+        Arguments.of("1111", false),
+        Arguments.of("4548111111111111", true)
+    )
+}
+
 object MinCharsArgumentsProvider: ArgumentsProvider {
     override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
         Arguments.of("test", 2, true),
