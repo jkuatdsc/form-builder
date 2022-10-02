@@ -113,7 +113,7 @@ open class TextFieldState(
      */
     internal fun validateWebUrl(message: String): Boolean {
         val webUrlRegex =
-            "https?://(www\\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\\.[a-z]{2,4}\\b([-a-zA-Z0-9@:%_+.~#?&/=]*)"
+            "(https?://)?(www\\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\\.[a-z]{2,4}\\b([-a-zA-Z0-9@:%_+~#?&/=]*)"
         val valid = webUrlRegex.toRegex().matches(value)
         if (!valid) showError(message)
         return valid

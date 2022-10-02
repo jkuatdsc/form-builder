@@ -29,7 +29,9 @@ object WebUrlArgumentsProvider : ArgumentsProvider {
         Arguments.of("http://test.com", true),
         Arguments.of("https://www.test.com", true),
         Arguments.of("www.test.", false),
+        Arguments.of("www.test.com.mx", true),
         Arguments.of("https://", false),
+        Arguments.of("www.test.com", true),
     )
 }
 
