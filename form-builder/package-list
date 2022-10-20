@@ -38,6 +38,9 @@ $dokka.location:com.dsc.form_builder/TextFieldState/validate/#/PointingToDeclara
 $dokka.location:com.dsc.form_builder/TextFieldState/value/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-text-field-state/value.html
 $dokka.location:com.dsc.form_builder/Transform///PointingToDeclaration/form-builder/com.dsc.form_builder/-transform/index.html
 $dokka.location:com.dsc.form_builder/Transform/transform/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/form-builder/com.dsc.form_builder/-transform/transform.html
+$dokka.location:com.dsc.form_builder/Validators.CardNumber///PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-card-number/index.html
+$dokka.location:com.dsc.form_builder/Validators.CardNumber/CardNumber/#kotlin.String/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-card-number/-card-number.html
+$dokka.location:com.dsc.form_builder/Validators.CardNumber/message/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-card-number/message.html
 $dokka.location:com.dsc.form_builder/Validators.Custom///PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-custom/index.html
 $dokka.location:com.dsc.form_builder/Validators.Custom/Custom/#kotlin.String#kotlin.Function1[kotlin.Any,kotlin.Boolean]/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-custom/-custom.html
 $dokka.location:com.dsc.form_builder/Validators.Custom/function/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-custom/function.html
@@ -61,9 +64,15 @@ $dokka.location:com.dsc.form_builder/Validators.MinValue///PointingToDeclaration
 $dokka.location:com.dsc.form_builder/Validators.MinValue/MinValue/#kotlin.Int#kotlin.String/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-min-value/-min-value.html
 $dokka.location:com.dsc.form_builder/Validators.MinValue/limit/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-min-value/limit.html
 $dokka.location:com.dsc.form_builder/Validators.MinValue/message/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-min-value/message.html
+$dokka.location:com.dsc.form_builder/Validators.Phone///PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-phone/index.html
+$dokka.location:com.dsc.form_builder/Validators.Phone/Phone/#kotlin.String/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-phone/-phone.html
+$dokka.location:com.dsc.form_builder/Validators.Phone/message/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-phone/message.html
 $dokka.location:com.dsc.form_builder/Validators.Required///PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-required/index.html
 $dokka.location:com.dsc.form_builder/Validators.Required/Required/#kotlin.String/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-required/-required.html
 $dokka.location:com.dsc.form_builder/Validators.Required/message/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-required/message.html
+$dokka.location:com.dsc.form_builder/Validators.WebUrl///PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-web-url/index.html
+$dokka.location:com.dsc.form_builder/Validators.WebUrl/WebUrl/#kotlin.String/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-web-url/-web-url.html
+$dokka.location:com.dsc.form_builder/Validators.WebUrl/message/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/-web-url/message.html
 $dokka.location:com.dsc.form_builder/Validators///PointingToDeclaration/form-builder/com.dsc.form_builder/-validators/index.html
 com.dsc.form_builder
 
