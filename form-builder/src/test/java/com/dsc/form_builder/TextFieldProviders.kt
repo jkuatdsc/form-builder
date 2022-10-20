@@ -13,6 +13,36 @@ object EmailArgumentsProvider : ArgumentsProvider {
     )
 }
 
+object PhoneArgumentsProvider : ArgumentsProvider {
+    override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
+        Arguments.of("test", false),
+        Arguments.of("88005553535", true),
+        Arguments.of("+8(800) 555-35-35", true),
+        Arguments.of("8-800-555-35-35-", false),
+    )
+}
+
+object WebUrlArgumentsProvider : ArgumentsProvider {
+    override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
+        Arguments.of("test", false),
+        Arguments.of("htt://www.test.com", false),
+        Arguments.of("http://test.com", true),
+        Arguments.of("https://www.test.com", true),
+        Arguments.of("www.test.", false),
+        Arguments.of("www.test.com.mx", true),
+        Arguments.of("https://", false),
+        Arguments.of("www.test.com", true),
+    )
+}
+
+object CardNumberArgumentsProvider : ArgumentsProvider {
+    override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
+        Arguments.of("1111111111111111", false),
+        Arguments.of("1111", false),
+        Arguments.of("4548111111111111", true)
+    )
+}
+
 object MinCharsArgumentsProvider: ArgumentsProvider {
     override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
         Arguments.of("test", 2, true),
