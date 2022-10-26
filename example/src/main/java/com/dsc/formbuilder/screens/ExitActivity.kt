@@ -1,6 +1,5 @@
 package com.dsc.formbuilder.screens
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,13 +7,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -43,8 +41,8 @@ class ExitActivity : ComponentActivity() {
                 AnimatedVisibility(
                     visibleState = screenState,
                     content = { ExitScreen() },
-                    enter = slideInHorizontally(),
-                    exit = slideOutHorizontally()
+                    enter = fadeIn(),
+                    exit = fadeOut()
                 )
             }
         }
