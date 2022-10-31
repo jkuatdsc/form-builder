@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
 import androidx.compose.animation.core.*
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -42,8 +40,8 @@ class IntroActivity : ComponentActivity() {
                 AnimatedVisibility(
                     visibleState = screenState,
                     content = { IntroScreen() },
-                    enter = slideInHorizontally(),
-                    exit = slideOutHorizontally()
+                    enter = fadeIn(),
+                    exit = fadeOut()
                 )
             }
         }
