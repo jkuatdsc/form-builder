@@ -1,6 +1,7 @@
 package com.dsc.formbuilder.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -16,9 +17,9 @@ val interFontFamily = FontFamily(
 
 val Typography = Typography(
     h6 = TextStyle(
-        fontSize = 20.sp,
+        fontSize = 24.sp,
         fontFamily = interFontFamily,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Black,
     ),
     body1 = TextStyle(
         fontSize = 16.sp,
@@ -26,12 +27,13 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
     ),
     caption = TextStyle(
-        fontSize = 10.sp,
+        fontSize = 12.sp,
         fontFamily = interFontFamily,
-        fontWeight = FontWeight.Light,
+        fontWeight = FontWeight.Normal,
+        color = Color.Black
     ),
     button = TextStyle(
-        fontSize = 12.sp,
+        fontSize = 14.sp,
         fontFamily = interFontFamily,
         fontWeight = FontWeight.Normal,
     ),
