@@ -19,54 +19,75 @@ class SurveyViewmodel : ViewModel() {
             TextFieldState(
                 name = "username",
                 validators = listOf(
+                    Validators.Required(),
                     Validators.Min(
                         limit = 4,
                         message = "Username should have more than 4 characters"
-                    ),
-                    Validators.Required()
+                    )
                 )
             ),
             TextFieldState(
                 name = "email",
                 validators = listOf(
+                    Validators.Email(),
                     Validators.Required(),
-                    Validators.Email()
                 ),
                 transform = { it.trim().lowercase() }
             ),
             TextFieldState(
                 name = "number",
                 validators = listOf(
-                    Validators.Required(),
-                    Validators.Custom(
-                        message = "enter your number in the format +254xxxxxxxxx",
-                        function = { correctNum(it.toString()) }
-                    )
+                    Validators.Phone(),
+                    Validators.Required()
                 )
             ),
             SelectState(
                 name = "platform",
-                validators = listOf(Validators.Required(message = "pick at least one platform"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "pick at least one platform"
+                    )
+                )
             ),
             SelectState(
                 name = "language",
-                validators = listOf(Validators.Required(message = "pick at least one language"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "pick at least one language"
+                    )
+                )
             ),
             SelectState(
                 name = "ide",
-                validators = listOf(Validators.Required(message = "pick at least one IDE"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "pick at least one IDE"
+                    )
+                )
             ),
             ChoiceState(
                 name = "gender",
-                validators = listOf(Validators.Required(message = "please select your gender"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "please select your gender"
+                    )
+                )
             ),
             ChoiceState(
                 name = "experience",
-                validators = listOf(Validators.Required(message = "please select your experience"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "please select your experience"
+                    )
+                )
             ),
             ChoiceState(
                 name = "os",
-                validators = listOf(Validators.Required(message = "please select one O.S"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "please select one system"
+                    )
+                )
             )
         )
     )
@@ -77,7 +98,7 @@ class SurveyViewmodel : ViewModel() {
 
     fun validateSurvey() {
         val pages: List<List<Int>> = (0..5).chunked(3)
-        if (!formState.validate()){
+        if (!formState.validate()) {
             val position = formState.fields.indexOfFirst { it.hasError }
             _screen.value = pages.indexOfFirst { it.contains(position) }
         } else _finish.value = true
@@ -85,14 +106,9 @@ class SurveyViewmodel : ViewModel() {
 
     fun validateScreen(screen: Int) {
         val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
-        if (fields.map { it.validate() }.all { it }){ // map is used so we can execute validate() on all fields in that screen
+        if (fields.map { it.validate() }.all { it }) { // map is used so we can execute validate() on all fields in that screen
             if (screen == 2) _finish.value = true
-            _screen.value +=1
+            _screen.value += 1
         }
     }
-
-    private fun correctNum(value: String): Boolean {
-        return value.length == 13
-    }
-
 }
