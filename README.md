@@ -104,13 +104,11 @@ TextFieldState(
 
 ### Demos
 
-**Demo 1**
-In this flow, the validations are executed before the next screen is presented.
+**Demo 1** : In this flow, the validations are executed before the next screen is presented.
 
 https://user-images.githubusercontent.com/47350130/204373150-86c89b3a-8ab2-4c52-8429-b778d0307845.mp4
 
-**Demo 2**
-In this demo, the validations are run at the end of the survey when submitting data.
+**Demo 2** : In this demo, the validations are run at the end of the survey when submitting data.
 
 https://user-images.githubusercontent.com/47350130/204372977-e8b66f71-0b61-4d93-a2c9-d8de04876785.mp4
 
