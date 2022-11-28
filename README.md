@@ -102,6 +102,14 @@ TextFieldState(
 )
 ```
 
+### Demos
+| **Demo 1**                                                                          | **Demo 2**                                                                           |
+|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| In this flow, the validations are executed before the next screen is presented.     | In this demo, the validations are run at the end of the survey when submitting data. |
+| https://drive.google.com/file/d/1-cXgO-mHqU3C7Ov2Ar_9iCBj4ty4w0KW/view?usp=sharing  | https://drive.google.com/file/d/1qRdNp-ZfQuU3zns4cjDP0sgehnZkpTwH/view?usp=sharing   |
+
+You can find the sample apk [here](https://drive.google.com/file/d/1tMtDtJwuDZoQnxluiAPNC0dYs7aqXUjt/view?usp=sharing)
+
 For more details about the library, check out the [references](https://jkuatdsc.github.io/form-builder/).
 
 ### <a id="links" href="#links">Further Reading</a>
