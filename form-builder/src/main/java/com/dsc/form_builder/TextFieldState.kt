@@ -53,6 +53,9 @@ open class TextFieldState(
         val validations = validators.map {
             when (it) {
                 is Validators.Email -> validateEmail(it.message)
+                is Validators.Phone -> validatePhone(it.message)
+                is Validators.WebUrl -> validateWebUrl(it.message)
+                is Validators.CardNumber -> validateCardNumber(it.message)
                 is Validators.Required -> validateRequired(it.message)
                 is Validators.Min -> validateMinChars(it.limit, it.message)
                 is Validators.Max -> validateMaxChars(it.limit, it.message)
@@ -85,6 +88,60 @@ open class TextFieldState(
     internal fun validateEmail(message: String): Boolean {
         val emailRegex = "^[A-Za-z](.*)([@])(.+)(\\.)(.+)"
         val valid = emailRegex.toRegex().matches(value)
+        if (!valid) showError(message)
+        return valid
+    }
+
+
+    /**
+     *This function validates a Phone in [value]
+     *It will return true if the string value is a valid phone number.
+     *The implementation makes use of the [android.util.Patterns] class to match the phone number.
+     *@param message the error message passed to [showError] to display if the value is not a valid phone number. By default we use the [PHONE_MESSAGE] constant.
+     */
+    internal fun validatePhone(message: String): Boolean {
+        val phoneRegex = "(\\+[0-9]+)?(\\([0-9]+\\)[\\- ]*)?([0-9][0-9\\- ]+[0-9])"
+        val valid = phoneRegex.toRegex().matches(value)
+        if (!valid) showError(message)
+        return valid
+    }
+
+    /**
+     *This function validates a Web Url in [value]
+     *It will return true if the string value is a valid web url.
+     *@param message the error message passed to [showError] to display if the value is not a valid web url. By default we use the [WEB_URL_MESSAGE] constant.
+     */
+    internal fun validateWebUrl(message: String): Boolean {
+        val webUrlRegex =
+            "(https?://)?(www\\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\\.[a-z]{2,4}\\b([-a-zA-Z0-9@:%_+~#?&/=]*)"
+        val valid = webUrlRegex.toRegex().matches(value)
+        if (!valid) showError(message)
+        return valid
+    }
+
+    /**
+     *This function validates a Card Number in [value]
+     *It will return true if the string value is a valid card number.
+     *@param message the error message passed to [showError] to display if the value is not a valid card number. By default we use the [CARD_NUMBER_MESSAGE] constant.
+     */
+    internal fun validateCardNumber(message: String): Boolean {
+        val cardNumberRegex = "(^3[47][0-9]{13}\$)|" +
+                "(^(6541|6556)[0-9]{12}\$)|" +
+                "(^389[0-9]{11}\$)|" +
+                "(^3(?:0[0-5]|[68][0-9])[0-9]{11}\$)|" +
+                "(^65[4-9][0-9]{13}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})\$\n)|" +
+                "(^63[7-9][0-9]{13}\$)|" +
+                "(^(?:2131|1800|35\\d{3})\\d{11}\$)|" +
+                "(^9[0-9]{15}\$)|" +
+                "(^(6304|6706|6709|6771)[0-9]{12,15}\$)|" +
+                "(^(5018|5020|5038|6304|6759|6761|6763)[0-9]{8,15}\$)|" +
+                "(^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))\$\n)|" +
+                "(^(6334|6767)[0-9]{12}|(6334|6767)[0-9]{14}|(6334|6767)[0-9]{15}\$)|" +
+                "(^(4903|4905|4911|4936|6333|6759)[0-9]{12}|(4903|4905|4911|4936|6333|6759)[0-9]{14}|(4903|4905|4911|4936|6333|6759)[0-9]{15}|564182[0-9]{10}|564182[0-9]{12}|564182[0-9]{13}|633110[0-9]{10}|633110[0-9]{12}|633110[0-9]{13}\$\n)|" +
+                "(^(62[0-9]{14,17})\$)|" +
+                "(^4[0-9]{12}(?:[0-9]{3})?\$)|" +
+                "(^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})\$)"
+        val valid = cardNumberRegex.toRegex().matches(value)
         if (!valid) showError(message)
         return valid
     }

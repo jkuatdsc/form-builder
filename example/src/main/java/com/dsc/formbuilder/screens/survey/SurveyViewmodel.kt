@@ -29,8 +29,8 @@ class SurveyViewmodel : ViewModel() {
             TextFieldState(
                 name = "email",
                 validators = listOf(
+                    Validators.Email(),
                     Validators.Required(),
-                    Validators.Email()
                 ),
                 transform = { it.trim().lowercase() }
             ),
@@ -46,27 +46,50 @@ class SurveyViewmodel : ViewModel() {
             ),
             SelectState(
                 name = "platform",
-                validators = listOf(Validators.Required(message = "Select at least one platform"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "Select at least one platform"
+                    )
+                )
             ),
             SelectState(
                 name = "language",
-                validators = listOf(Validators.Required(message = "Select at least one language"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "Select at least one language"
+                    )
+                )
             ),
             SelectState(
                 name = "ide",
-                validators = listOf(Validators.Required(message = "Select at least one IDE"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "Select at least one IDE"
+                    )
+                )
             ),
             ChoiceState(
                 name = "gender",
-                validators = listOf(Validators.Required(message = "Select your gender"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "Select your gender"
+                    )
+                )
             ),
             ChoiceState(
                 name = "experience",
-                validators = listOf(Validators.Required(message = "Select your experience"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "Select your experience"
+                    )
+                )
             ),
             ChoiceState(
                 name = "os",
-                validators = listOf(Validators.Required(message = "Select select one system"))
+                validators = listOf(
+                    Validators.Required(
+                        message = "Select select one system")
+                )
             )
         )
     )
@@ -87,12 +110,7 @@ class SurveyViewmodel : ViewModel() {
         val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
         if (fields.map { it.validate() }.all { it }){ // map is used so we can execute validate() on all fields in that screen
             if (screen == 2) _finish.value = true
-            _screen.value +=1
+            _screen.value += 1
         }
     }
-
-    private fun correctNum(value: String): Boolean {
-        return value.length == 13
-    }
-
 }

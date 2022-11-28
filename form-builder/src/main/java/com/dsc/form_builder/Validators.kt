@@ -2,6 +2,9 @@ package com.dsc.form_builder
 
 private const val EMAIL_MESSAGE = "Invalid email address"
 private const val REQUIRED_MESSAGE = "This field is required"
+private const val PHONE_MESSAGE = "Invalid phone number"
+private const val WEB_URL_MESSAGE = "Invalid web url"
+private const val CARD_NUMBER_MESSAGE = "Invalid card number"
 
 /**
  *
@@ -32,6 +35,24 @@ sealed interface Validators {
      * @param message the error message to display if the value is not a valid email address. By default we use the [EMAIL_MESSAGE] constant.
      */
     class Email(var message: String = EMAIL_MESSAGE) : Validators
+
+    /**
+     * This is a phone validator. It will return true if the string value is a valid phone number. The implementation makes use of the [android.util.Patterns] class to match the phone number.
+     * @param message the error message to display if the value is not a valid phone number. By default we use the [PHONE_MESSAGE] constant.
+     */
+    class Phone(var message: String = PHONE_MESSAGE) : Validators
+
+    /**
+     * This is a web url validator. It will return true if the string value is a valid web url.
+     * @param message the error message to display if the value is not a valid web url. By default we use the [WEB_URL_MESSAGE] constant.
+     */
+    class WebUrl(var message: String = WEB_URL_MESSAGE) : Validators
+
+    /**
+     * This is a card number validator. It will return true if the string value is a valid card number.
+     * @param message the error message to display if the value is not a valid card number. By default we use the [CARD_NUMBER_MESSAGE] constant.
+     */
+    class CardNumber(var message: String = CARD_NUMBER_MESSAGE) : Validators
 
     /**
      * This validator is used to check for numeric values. It will return true is the value is numeric and is greater than or equal to the specified limit.

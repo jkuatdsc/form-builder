@@ -63,6 +63,33 @@ internal class TextFieldStateTest {
         }
 
         @ParameterizedTest
+        @ArgumentsSource(PhoneArgumentsProvider::class)
+        fun `Validators_Phone works correctly`(phone: String, expected: Boolean) {
+            classToTest.change(phone)
+
+            val actual = classToTest.validatePhone("expected validation: $expected")
+            assert(actual == expected)
+        }
+
+        @ParameterizedTest
+        @ArgumentsSource(WebUrlArgumentsProvider::class)
+        fun `Validators_WebUrl works correctly`(webUrl: String, expected: Boolean) {
+            classToTest.change(webUrl)
+
+            val actual = classToTest.validateWebUrl("expected validation: $expected")
+            assert(actual == expected)
+        }
+
+        @ParameterizedTest
+        @ArgumentsSource(CardNumberArgumentsProvider::class)
+        fun `Validators_CardNumber works correctly`(cardNumber: String, expected: Boolean) {
+            classToTest.change(cardNumber)
+
+            val actual = classToTest.validateCardNumber("expected validation: $expected")
+            assert(actual == expected)
+        }
+
+        @ParameterizedTest
         @ArgumentsSource(MinCharsArgumentsProvider::class)
         fun `Validators_MinChars works correctly`(value: String, limit: Int, expected: Boolean) {
             classToTest.change(value)
