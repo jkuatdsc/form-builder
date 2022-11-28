@@ -103,31 +103,16 @@ TextFieldState(
 ```
 
 ### Demos
-<table>
-   <thead>
-      <tr>
-         <th>Demo 1</th>
-         <th>Demo 2</th>
-      </tr>
-   </thead>
-   <tbody>
-      <tr>
-         <td>In this flow, the validations are executed before the next screen is presented.</td>
-         <td> In this demo, the validations are run at the end of the survey when submitting data. </td>
-      </tr>
-      <tr>
-         <td>
-            <video controls>
-               <source src="https://user-images.githubusercontent.com/47350130/204373150-86c89b3a-8ab2-4c52-8429-b778d0307845.mp4" type="video/mp4">
-            </video>
-         </td>
-         <td>
-            <video controls>
-               <source src="https://user-images.githubusercontent.com/47350130/204372977-e8b66f71-0b61-4d93-a2c9-d8de04876785.mp4" type="video/mp4">
-            </video>
-         </td>
-   </tbody>
-</table>
+
+**Demo 1**
+In this flow, the validations are executed before the next screen is presented.
+
+https://user-images.githubusercontent.com/47350130/204373150-86c89b3a-8ab2-4c52-8429-b778d0307845.mp4
+
+**Demo 2**
+In this demo, the validations are run at the end of the survey when submitting data.
+
+https://user-images.githubusercontent.com/47350130/204372977-e8b66f71-0b61-4d93-a2c9-d8de04876785.mp4
 
 You can find the sample apk [here](https://drive.google.com/file/d/1tMtDtJwuDZoQnxluiAPNC0dYs7aqXUjt/view?usp=sharing)
 
