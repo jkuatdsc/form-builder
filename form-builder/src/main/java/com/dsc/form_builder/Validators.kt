@@ -1,7 +1,7 @@
 package com.dsc.form_builder
 
-private const val EMAIL_MESSAGE = "invalid email address"
-private const val REQUIRED_MESSAGE = "this field is required"
+private const val EMAIL_MESSAGE = "Invalid email address"
+private const val REQUIRED_MESSAGE = "This field is required"
 
 /**
  *
