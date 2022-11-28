@@ -37,11 +37,8 @@ class SurveyViewmodel : ViewModel() {
             TextFieldState(
                 name = "number",
                 validators = listOf(
+                    Validators.Phone(),
                     Validators.Required(),
-                    Validators.Custom(
-                        message = "Incorrect number format",
-                        function = { correctNum(it.toString()) }
-                    )
                 )
             ),
             SelectState(
@@ -88,7 +85,8 @@ class SurveyViewmodel : ViewModel() {
                 name = "os",
                 validators = listOf(
                     Validators.Required(
-                        message = "Select select one system")
+                        message = "Select select one system"
+                    )
                 )
             )
         )
