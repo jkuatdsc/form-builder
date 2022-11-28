@@ -104,7 +104,7 @@ TextFieldState(
 
 ### Demos
 
-**Demo 1** : In this flow, the validations are executed before the next screen is presented.
+**Demo 1** : In this demo, the validations are executed before the next screen is presented.
 
 https://user-images.githubusercontent.com/47350130/204373150-86c89b3a-8ab2-4c52-8429-b778d0307845.mp4
 
