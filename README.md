@@ -117,12 +117,12 @@ TextFieldState(
       </tr>
       <tr>
          <td>
-            <video width="280" height="600" controls>
+            <video controls>
                <source src="https://user-images.githubusercontent.com/47350130/204373150-86c89b3a-8ab2-4c52-8429-b778d0307845.mp4" type="video/mp4">
             </video>
          </td>
          <td>
-            <video width="280" height="600" controls>
+            <video controls>
                <source src="https://user-images.githubusercontent.com/47350130/204372977-e8b66f71-0b61-4d93-a2c9-d8de04876785.mp4" type="video/mp4">
             </video>
          </td>
