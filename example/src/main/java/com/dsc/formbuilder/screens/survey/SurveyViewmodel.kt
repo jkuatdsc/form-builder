@@ -85,7 +85,7 @@ class SurveyViewmodel : ViewModel() {
                 name = "os",
                 validators = listOf(
                     Validators.Required(
-                        message = "Select select one system"
+                        message = "Select one system"
                     )
                 )
             )
