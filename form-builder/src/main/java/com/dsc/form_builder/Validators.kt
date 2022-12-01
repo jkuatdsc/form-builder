@@ -1,10 +1,10 @@
 package com.dsc.form_builder
 
-private const val EMAIL_MESSAGE = "invalid email address"
-private const val REQUIRED_MESSAGE = "this field is required"
-private const val PHONE_MESSAGE = "invalid phone number"
-private const val WEB_URL_MESSAGE = "invalid web url"
-private const val CARD_NUMBER_MESSAGE = "invalid card number"
+private const val EMAIL_MESSAGE = "Invalid email address"
+private const val REQUIRED_MESSAGE = "This field is required"
+private const val PHONE_MESSAGE = "Invalid phone number"
+private const val WEB_URL_MESSAGE = "Invalid web url"
+private const val CARD_NUMBER_MESSAGE = "Invalid card number"
 
 /**
  *

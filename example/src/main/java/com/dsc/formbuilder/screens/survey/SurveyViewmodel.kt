@@ -19,11 +19,11 @@ class SurveyViewmodel : ViewModel() {
             TextFieldState(
                 name = "username",
                 validators = listOf(
-                    Validators.Required(),
                     Validators.Min(
                         limit = 4,
                         message = "Username should have more than 4 characters"
-                    )
+                    ),
+                    Validators.Required()
                 )
             ),
             TextFieldState(
@@ -38,14 +38,14 @@ class SurveyViewmodel : ViewModel() {
                 name = "number",
                 validators = listOf(
                     Validators.Phone(),
-                    Validators.Required()
+                    Validators.Required(),
                 )
             ),
             SelectState(
                 name = "platform",
                 validators = listOf(
                     Validators.Required(
-                        message = "pick at least one platform"
+                        message = "Select at least one platform"
                     )
                 )
             ),
@@ -53,7 +53,7 @@ class SurveyViewmodel : ViewModel() {
                 name = "language",
                 validators = listOf(
                     Validators.Required(
-                        message = "pick at least one language"
+                        message = "Select at least one language"
                     )
                 )
             ),
@@ -61,7 +61,7 @@ class SurveyViewmodel : ViewModel() {
                 name = "ide",
                 validators = listOf(
                     Validators.Required(
-                        message = "pick at least one IDE"
+                        message = "Select at least one IDE"
                     )
                 )
             ),
@@ -69,7 +69,7 @@ class SurveyViewmodel : ViewModel() {
                 name = "gender",
                 validators = listOf(
                     Validators.Required(
-                        message = "please select your gender"
+                        message = "Select your gender"
                     )
                 )
             ),
@@ -77,7 +77,7 @@ class SurveyViewmodel : ViewModel() {
                 name = "experience",
                 validators = listOf(
                     Validators.Required(
-                        message = "please select your experience"
+                        message = "Select your experience"
                     )
                 )
             ),
@@ -85,7 +85,7 @@ class SurveyViewmodel : ViewModel() {
                 name = "os",
                 validators = listOf(
                     Validators.Required(
-                        message = "please select one system"
+                        message = "Select one system"
                     )
                 )
             )
@@ -98,7 +98,7 @@ class SurveyViewmodel : ViewModel() {
 
     fun validateSurvey() {
         val pages: List<List<Int>> = (0..5).chunked(3)
-        if (!formState.validate()) {
+        if (!formState.validate()){
             val position = formState.fields.indexOfFirst { it.hasError }
             _screen.value = pages.indexOfFirst { it.contains(position) }
         } else _finish.value = true
@@ -106,7 +106,7 @@ class SurveyViewmodel : ViewModel() {
 
     fun validateScreen(screen: Int) {
         val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
-        if (fields.map { it.validate() }.all { it }) { // map is used so we can execute validate() on all fields in that screen
+        if (fields.map { it.validate() }.all { it }){ // map is used so we can execute validate() on all fields in that screen
             if (screen == 2) _finish.value = true
             _screen.value += 1
         }
