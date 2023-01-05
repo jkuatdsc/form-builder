@@ -68,4 +68,12 @@ abstract class BaseState<T>(
     open fun getData(): Any? {
         return if (transform == null) value else transform.transform(value)
     }
+
+    /**
+     * This function resets all form field values to their initial states.
+     */
+    fun reset() {
+        this.value = initial
+        this.hideError()
+    }
 }
