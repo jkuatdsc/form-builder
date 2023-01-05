@@ -33,4 +33,13 @@ open class FormState<T : BaseState<*>>(val fields: List<T>) {
         val args: Map<KParameter, Any?> = constructor.parameters.associateWith { map[it.name] }
         return constructor.callBy(args)
     }
+
+    /**
+     * This function is used to reset data in all the form fields to their initial values.
+     */
+    fun reset() {
+        fields.map {
+            it.reset()
+        }
+    }
 }
