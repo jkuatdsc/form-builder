@@ -125,4 +125,32 @@ internal class TextFieldStateTest {
             assert(actual == expected)
         }
     }
+
+    @Nested
+    inner class DescribingFormState {
+        private val formState = FormState(
+            listOf(
+                TextFieldState(name = "email"),
+                SelectState(name = "hobbies"),
+                ChoiceState(name = "gender")
+            )
+        )
+
+        private val emailState = formState.getState<TextFieldState>("email")
+        private val hobbyState = formState.getState<SelectState>("hobbies")
+        private val genderState = formState.getState<ChoiceState>("gender")
+
+        @Test
+        fun `state should be reset to initial values`() {
+            emailState.change("buider@gmail.com")
+            hobbyState.select("Running")
+            genderState.change("male")
+
+            formState.reset()
+
+            assert(emailState.value == "" && !emailState.hasError)
+            assert(hobbyState.value == mutableListOf<String>() && !hobbyState.hasError)
+            assert(genderState.value == "" && !genderState.hasError)
+        }
+    }
 }
