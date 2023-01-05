@@ -20,7 +20,7 @@ package com.dsc.form_builder
 class ChoiceState(
     name: String,
     initial: String = "",
-    validators: List<Validators>,
+    validators: List<Validators> = listOf(),
     transform: Transform<String>? = null,
 ) : TextFieldState(initial = initial, name = name, validators = validators, transform = transform) {
 
