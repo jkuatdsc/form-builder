@@ -1,10 +1,12 @@
 package com.dsc.formbuilder.screens.survey
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.dsc.form_builder.*
+import com.dsc.formbuilder.screens.survey.components.SurveyModel
 
 class SurveyViewmodel : ViewModel() {
 
@@ -47,7 +49,7 @@ class SurveyViewmodel : ViewModel() {
                     Validators.Required(
                         message = "Select at least one platform"
                     )
-                )
+                ),
             ),
             SelectState(
                 name = "language",
@@ -101,14 +103,25 @@ class SurveyViewmodel : ViewModel() {
         if (!formState.validate()){
             val position = formState.fields.indexOfFirst { it.hasError }
             _screen.value = pages.indexOfFirst { it.contains(position) }
-        } else _finish.value = true
+        } else {
+            logData()
+            _finish.value = true
+        }
     }
 
     fun validateScreen(screen: Int) {
         val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
         if (fields.map { it.validate() }.all { it }){ // map is used so we can execute validate() on all fields in that screen
-            if (screen == 2) _finish.value = true
+            if (screen == 2){
+                logData()
+                _finish.value = true
+            }
             _screen.value += 1
         }
+    }
+
+    private fun logData() {
+        val data = formState.getData(SurveyModel::class)
+        Log.d("SurveyLog", "form data is $data")
     }
 }

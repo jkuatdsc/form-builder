@@ -30,7 +30,21 @@ open class FormState<T : BaseState<*>>(val fields: List<T>) {
     fun <T : Any> getData(dataClass: KClass<T>): T {
         val map = fields.associate { it.name to it.getData() }
         val constructor = dataClass.constructors.last()
-        val args: Map<KParameter, Any?> = constructor.parameters.associateWith { map[it.name] }
+        val args: MutableMap<KParameter, Any?> = mutableMapOf()
+        constructor.parameters.associateWith {
+            val value = map[it.name]
+            if (!it.isOptional) {
+                checkNotNull(value) {
+                    """
+                        A non-null value (${it.name}) in your class doesn't have a matching field in the form data. 
+                        This will throw a NullPointerException when creating $dataClass. To solve this, you can:
+                        1. Make the value nullable in your data class
+                        2. Provide a default value for the parameter
+                    """.trimIndent()
+                }
+                args[it] = value
+            }
+        }
         return constructor.callBy(args)
     }
 

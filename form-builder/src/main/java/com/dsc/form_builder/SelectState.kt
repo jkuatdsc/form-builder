@@ -75,7 +75,7 @@ class SelectState(
      * @param message the error message to be displayed if the state's value does not meet the validation criteria.
      * @return true if the state's value is more than the [limit] passed in to the [Validators.Min] class.
      */
-    private fun validateMin(limit: Int, message: String): Boolean {
+    internal fun validateMin(limit: Int, message: String): Boolean {
         val valid = value.size >= limit
         if (!valid) showError(message)
         return valid
@@ -88,7 +88,7 @@ class SelectState(
      * @param message the error message to be displayed if the state's value does not meet the validation criteria.
      * @return true if the state's value is less than the [limit] passed in to the [Validators.Max] class.
      */
-    private fun validateMax(limit: Int, message: String): Boolean {
+    internal fun validateMax(limit: Int, message: String): Boolean {
         val valid = value.size <= limit
         if (!valid) showError(message)
         return valid
@@ -99,7 +99,7 @@ class SelectState(
      * @param message the error message to be displayed if the state's value does not meet the validation criteria.
      * @return true if the state's value is not empty.
      */
-    private fun validateRequired(message: String): Boolean {
+    internal fun validateRequired(message: String): Boolean {
         val valid = value.isNotEmpty()
         if (!valid) showError(message)
         return valid
