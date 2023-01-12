@@ -88,7 +88,7 @@ if (formState.validate()) {
 }
 ```
 Here is what the `Credentials` data class looks like. Take note of how the property names correspond to the field values 
-passed when instantiating the form.
+passed when instantiating the form state.
 
 ```Kotlin
 data class Credentials(
