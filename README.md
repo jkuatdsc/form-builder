@@ -79,13 +79,23 @@ various properties of the state like `text`, `hasError`, `errorMessage` etc.
 
 > Don't forget to update your state using the setter functions in each field state.
 
-To validate your form:
+To validate your form and get form data:
 
 ```kotlin
 if (formState.validate()) {
     val data = formState.getData(Credentials::class)
     Log.d("Data", "submit: data from the form $data")
 }
+```
+Here is what the `Credentials` data class looks like. Take note of how the property names correspond to the field values 
+passed when instantiating the form state.
+
+```Kotlin
+data class Credentials(
+    val email: String,
+    val gender: String,
+    val hobbies: List<String>
+)
 ```
 
 The `validate` function returns `true` if all the fields are valid. You can then access data from the form using
