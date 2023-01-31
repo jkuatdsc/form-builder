@@ -1,6 +1,7 @@
 package com.dsc.formbuilder.screens
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,6 +19,7 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -49,7 +51,47 @@ class IntroActivity : ComponentActivity() {
 }
 
 @Composable
-fun IntroScreen(modifier: Modifier = Modifier) {
+fun IntroScreen() {
+    val configuration = LocalConfiguration.current
+
+    when (configuration.orientation) {
+        Configuration.ORIENTATION_PORTRAIT -> {
+            PortraitView()
+        }
+        else -> {
+            LandscapeView()
+        }
+    }
+}
+
+@Composable
+fun PortraitView() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(12.dp),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(150.dp))
+        BaseView()
+    }
+}
+
+@Composable
+fun LandscapeView() {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(12.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        BaseView()
+    }
+}
+
+@Composable
+fun BaseView() {
     val black = MaterialTheme.colors.onPrimary
     val white = MaterialTheme.colors.background
 
@@ -57,82 +99,74 @@ fun IntroScreen(modifier: Modifier = Modifier) {
     var checked by remember { mutableStateOf(true) }
     val interactionSource = remember { MutableInteractionSource() }
 
-    Column(
-        modifier = Modifier.fillMaxSize().padding(12.dp),
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(150.dp))
+    Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.Center) {
+        val infiniteTransition = rememberInfiniteTransition()
+        val animationSpec: InfiniteRepeatableSpec<Float> = infiniteRepeatable(
+            animation = tween(1000),
+            repeatMode = RepeatMode.Reverse
+        )
 
-        Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.Center) {
-            val infiniteTransition = rememberInfiniteTransition()
-            val animationSpec: InfiniteRepeatableSpec<Float> = infiniteRepeatable(
-                animation = tween(1000),
-                repeatMode = RepeatMode.Reverse
-            )
+        val pulseMagnitude by infiniteTransition.animateFloat(
+            initialValue = 240f,
+            targetValue = 270f,
+            animationSpec = animationSpec
+        )
 
-            val pulseMagnitude by infiniteTransition.animateFloat(
-                initialValue = 240f,
-                targetValue = 270f,
-                animationSpec = animationSpec
-            )
+        val textSizeInfinite = infiniteTransition.animateFloat(
+            initialValue = MaterialTheme.typography.h4.fontSize.value,
+            targetValue = MaterialTheme.typography.h3.fontSize.value,
+            animationSpec = animationSpec
+        )
 
-            val textSizeInfinite = infiniteTransition.animateFloat(
-                initialValue = MaterialTheme.typography.h4.fontSize.value,
-                targetValue = MaterialTheme.typography.h3.fontSize.value,
-                animationSpec = animationSpec
-            )
-
-            Card(
-                elevation = 5.dp,
-                shape = CircleShape,
-                modifier = Modifier
-                    .size(pulseMagnitude.dp)
-                    .padding(all = 12.dp)
-                    .clickable(
-                        interactionSource = interactionSource,
-                        indication = null,
-                        onClick = {
-                            val intent = Intent(context, SurveyActivity::class.java)
-                            intent.putExtra("validate", checked)
-                            context.startActivity(intent)
-                        },
-                    ),
-            ) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(
-                        textAlign = TextAlign.Center,
-                        text = stringResource(id = R.string.start),
-                        style = MaterialTheme.typography.button.copy(
-                            fontSize = textSizeInfinite.value.sp
-                        )
+        Card(
+            elevation = 5.dp,
+            shape = CircleShape,
+            modifier = Modifier
+                .size(pulseMagnitude.dp)
+                .padding(all = 12.dp)
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = {
+                        val intent = Intent(context, SurveyActivity::class.java)
+                        intent.putExtra("validate", checked)
+                        context.startActivity(intent)
+                    },
+                ),
+        ) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(
+                    textAlign = TextAlign.Center,
+                    text = stringResource(id = R.string.start),
+                    style = MaterialTheme.typography.button.copy(
+                        fontSize = textSizeInfinite.value.sp
                     )
-                }
+                )
             }
         }
+    }
 
-        Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.BottomCenter) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(id = R.string.validate),
-                    style = MaterialTheme.typography.body1,
-                )
-                Spacer(modifier = modifier.width(24.dp))
+    Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.Center) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(id = R.string.validate),
+                style = MaterialTheme.typography.body1,
+            )
+            Spacer(modifier = Modifier.width(24.dp))
 
-                Switch(
-                    checked = checked,
-                    onCheckedChange = { checked = it },
-                    colors = SwitchDefaults.colors(
-                        checkedTrackColor = black,
-                        uncheckedTrackColor = white,
-                        uncheckedThumbColor = black,
-                        uncheckedBorderColor = black,
-                    )
+            Switch(
+                checked = checked,
+                onCheckedChange = { checked = it },
+                colors = SwitchDefaults.colors(
+                    checkedTrackColor = black,
+                    uncheckedTrackColor = white,
+                    uncheckedThumbColor = black,
+                    uncheckedBorderColor = black,
                 )
-            }
+            )
         }
     }
 }
