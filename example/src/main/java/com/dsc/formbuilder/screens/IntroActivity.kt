@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.clickable
@@ -28,20 +29,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dsc.formbuilder.R
 import com.dsc.formbuilder.screens.survey.SurveyActivity
+import com.dsc.formbuilder.screens.survey.SurveyViewmodel
 import com.dsc.formbuilder.theme.FormBuilderTheme
 
 class IntroActivity : ComponentActivity() {
+    private val viewmodel: SurveyViewmodel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val isChecked by remember { viewmodel.checked }
             FormBuilderTheme {
                 val screenState = remember {
                     MutableTransitionState(false).apply { targetState = true }
                 }
                 AnimatedVisibility(
                     visibleState = screenState,
-                    content = { IntroScreen() },
+                    content = {
+                        IntroScreen(
+                            checked = isChecked,
+                            onCheckChange = { viewmodel.onCheckChange(it) }
+                        )
+                    },
                     enter = fadeIn(),
                     exit = fadeOut()
                 )
@@ -51,21 +60,22 @@ class IntroActivity : ComponentActivity() {
 }
 
 @Composable
-fun IntroScreen() {
+fun IntroScreen(checked: Boolean, onCheckChange: (Boolean) -> Unit) {
     val configuration = LocalConfiguration.current
+
 
     when (configuration.orientation) {
         Configuration.ORIENTATION_PORTRAIT -> {
-            PortraitView()
+            PortraitView(checked = checked, onCheckChange = onCheckChange)
         }
         else -> {
-            LandscapeView()
+            LandscapeView(checked = checked, onCheckChange = onCheckChange)
         }
     }
 }
 
 @Composable
-fun PortraitView() {
+fun PortraitView(checked: Boolean, onCheckChange: (Boolean) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -74,29 +84,29 @@ fun PortraitView() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(150.dp))
-        BaseView()
+        BaseView(Alignment.BottomCenter, checked = checked, onCheckChange = onCheckChange)
     }
 }
 
 @Composable
-fun LandscapeView() {
+fun LandscapeView(checked: Boolean, onCheckChange: (Boolean) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxSize()
             .padding(12.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        BaseView()
+        BaseView(alignment = Alignment.Center, checked = checked, onCheckChange = onCheckChange)
     }
 }
 
 @Composable
-fun BaseView() {
+fun BaseView(alignment: Alignment, checked: Boolean, onCheckChange: (Boolean) -> Unit) {
     val black = MaterialTheme.colors.onPrimary
     val white = MaterialTheme.colors.background
 
     val context = LocalContext.current
-    var checked by remember { mutableStateOf(true) }
+    // var checked by remember { mutableStateOf(true) }
     val interactionSource = remember { MutableInteractionSource() }
 
     Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.Center) {
@@ -146,7 +156,7 @@ fun BaseView() {
         }
     }
 
-    Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.Center) {
+    Box(modifier = Modifier.size(300.dp), contentAlignment = alignment) {
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -159,7 +169,7 @@ fun BaseView() {
 
             Switch(
                 checked = checked,
-                onCheckedChange = { checked = it },
+                onCheckedChange = { onCheckChange(it) },
                 colors = SwitchDefaults.colors(
                     checkedTrackColor = black,
                     uncheckedTrackColor = white,
@@ -175,6 +185,6 @@ fun BaseView() {
 @Composable
 fun IntroPreview() {
     FormBuilderTheme {
-        IntroScreen()
+        IntroScreen(checked = true, onCheckChange = { })
     }
 }

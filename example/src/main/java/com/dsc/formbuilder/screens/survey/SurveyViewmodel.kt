@@ -16,6 +16,9 @@ class SurveyViewmodel : ViewModel() {
     private val _finish: MutableState<Boolean> = mutableStateOf(false)
     val finish: State<Boolean> = _finish
 
+    private val _checked: MutableState<Boolean> = mutableStateOf(true)
+    val checked: State<Boolean> = _checked
+
     val formState: FormState<BaseState<*>> = FormState(
         fields = listOf(
             TextFieldState(
@@ -123,5 +126,9 @@ class SurveyViewmodel : ViewModel() {
     private fun logData() {
         val data = formState.getData(SurveyModel::class)
         Log.d("SurveyLog", "form data is $data")
+    }
+
+    fun onCheckChange(isChecked: Boolean) {
+        _checked.value = isChecked
     }
 }
