@@ -6,6 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,11 +28,21 @@ class SurveyActivity : ComponentActivity() {
                 val formState = remember { viewmodel.formState }
                 val validate = intent.getBooleanExtra("validate", true)
 
-                Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceAround) {
+                val scrollState = rememberScrollState()
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scrollState),
+                    verticalArrangement = Arrangement.SpaceAround
+                ) {
                     TabLayout(screen = screen)
 
-                    Column(horizontalAlignment = Alignment.End, modifier = Modifier.padding(12.dp)) {
-                        when(screen){
+                    Column(
+                        horizontalAlignment = Alignment.End,
+                        modifier = Modifier.padding(12.dp)
+                    ) {
+                        when (screen) {
                             0 -> PersonalDetails(formState = formState)
                             1 -> TechnicalDetails(formState = formState)
                             2 -> OtherDetails(formState = formState)
@@ -54,7 +66,7 @@ class SurveyActivity : ComponentActivity() {
 
                 // Navigate to exit screen if everything is ok
                 val processDone by remember { viewmodel.finish }
-                if (processDone){
+                if (processDone) {
                     startActivity(Intent(this, ExitActivity::class.java))
                     finish()
                 }
