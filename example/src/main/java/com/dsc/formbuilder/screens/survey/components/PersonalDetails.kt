@@ -3,12 +3,13 @@ package com.dsc.formbuilder.screens.survey.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dsc.form_builder.BaseState
@@ -31,21 +32,21 @@ fun PersonalDetails(formState: FormState<BaseState<*>>) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        TextInput(label = "Username", state = usernameState)
+        TextInput(label = "Username", state = usernameState, imeAction = ImeAction.Next)
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        TextInput(label = "Email", state = emailState)
+        TextInput(label = "Email", state = emailState, imeAction = ImeAction.Next)
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        TextInput(label = "Number", state = numberState)
+        TextInput(label = "Number", state = numberState, imeAction = ImeAction.Done)
 
     }
 }
 
 @Composable
-fun TextInput(label: String, state: TextFieldState) {
+fun TextInput(label: String, state: TextFieldState, imeAction: ImeAction) {
 
     Column {
         OutlinedTextField(
@@ -55,12 +56,18 @@ fun TextInput(label: String, state: TextFieldState) {
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
             onValueChange = { state.change(it) },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = imeAction
+            ) ,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 errorBorderColor = MaterialTheme.colors.error,
                 focusedBorderColor = MaterialTheme.colors.onPrimary,
                 unfocusedBorderColor = MaterialTheme.colors.onPrimary
+            ),
+
             )
-        )
 
         if (state.hasError) {
             Text(
