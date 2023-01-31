@@ -10,6 +10,7 @@ $dokka.location:com.dsc.form_builder/BaseState/hasError/#/PointingToDeclaration/
 $dokka.location:com.dsc.form_builder/BaseState/hideError/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-base-state/hide-error.html
 $dokka.location:com.dsc.form_builder/BaseState/initial/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-base-state/initial.html
 $dokka.location:com.dsc.form_builder/BaseState/name/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-base-state/name.html
+$dokka.location:com.dsc.form_builder/BaseState/reset/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-base-state/reset.html
 $dokka.location:com.dsc.form_builder/BaseState/showError/#kotlin.String/PointingToDeclaration/form-builder/com.dsc.form_builder/-base-state/show-error.html
 $dokka.location:com.dsc.form_builder/BaseState/transform/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-base-state/transform.html
 $dokka.location:com.dsc.form_builder/BaseState/validate/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-base-state/validate.html
@@ -23,6 +24,7 @@ $dokka.location:com.dsc.form_builder/FormState/FormState/#kotlin.collections.Lis
 $dokka.location:com.dsc.form_builder/FormState/fields/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-form-state/fields.html
 $dokka.location:com.dsc.form_builder/FormState/getData/#kotlin.reflect.KClass[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/form-builder/com.dsc.form_builder/-form-state/get-data.html
 $dokka.location:com.dsc.form_builder/FormState/getState/#kotlin.String/PointingToDeclaration/form-builder/com.dsc.form_builder/-form-state/get-state.html
+$dokka.location:com.dsc.form_builder/FormState/reset/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-form-state/reset.html
 $dokka.location:com.dsc.form_builder/FormState/validate/#/PointingToDeclaration/form-builder/com.dsc.form_builder/-form-state/validate.html
 $dokka.location:com.dsc.form_builder/SelectState///PointingToDeclaration/form-builder/com.dsc.form_builder/-select-state/index.html
 $dokka.location:com.dsc.form_builder/SelectState/SelectState/#kotlin.String#kotlin.collections.MutableList[kotlin.String]#com.dsc.form_builder.Transform[kotlin.collections.MutableList[kotlin.String]]?#kotlin.collections.List[com.dsc.form_builder.Validators]/PointingToDeclaration/form-builder/com.dsc.form_builder/-select-state/-select-state.html
