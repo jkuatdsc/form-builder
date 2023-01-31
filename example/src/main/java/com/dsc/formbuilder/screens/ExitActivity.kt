@@ -1,5 +1,6 @@
 package com.dsc.formbuilder.screens
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,9 +19,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dsc.formbuilder.R
 import com.dsc.formbuilder.theme.FormBuilderTheme
@@ -54,6 +57,15 @@ fun ExitScreen() {
     val textStyle = MaterialTheme.typography.body1
     val infiniteTransition = rememberInfiniteTransition()
 
+    val configuration = LocalConfiguration.current
+    val handSize: Dp = when(configuration.orientation) {
+        Configuration.ORIENTATION_LANDSCAPE -> {
+            200.dp
+        } else-> {
+            300.dp
+        }
+    }
+
     val imageAnim by infiniteTransition.animateFloat(
         initialValue = 210f,
         targetValue = 240f,
@@ -69,7 +81,7 @@ fun ExitScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier)
-        Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier.size(handSize), contentAlignment = Alignment.Center) {
             Image(
                 painter = painterResource(id = R.drawable.like),
                 contentDescription = "Thumbs Up",
