@@ -39,7 +39,9 @@ object CardNumberArgumentsProvider : ArgumentsProvider {
     override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
         Arguments.of("1111111111111111", false),
         Arguments.of("1111", false),
-        Arguments.of("4548111111111111", true)
+        Arguments.of("4012888888881881", true), // Visa card
+        Arguments.of("5105105105105100", true), // Mastercard
+        Arguments.of("374245455400126", true) // AMEX
     )
 }
 

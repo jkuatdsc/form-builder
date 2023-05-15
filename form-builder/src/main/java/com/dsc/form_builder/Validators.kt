@@ -76,6 +76,18 @@ sealed interface Validators {
 
     /**
      * This is validator gives you the option to provide your own implementation of the validator. You can pass in a custom function to validate the field value.
+     *
+     * Example: check if a string contains the word hello
+     * ```kt
+     * Validators.Custom(
+     *     message = "value must have hello"
+     *     function = { it.contains("hello") }
+     * )
+     * ```
+     *
+     *[Validators].[Custom] ([message] = "A custom message" , [function] = { customFunc(customParam) } )
+     *
+     *
      * @param function this is the lambda function that is called during validation. It provides the field value as a parameter and expects a [Boolean] return value.
      * @param message the error message to display if the validation fails.
      */
