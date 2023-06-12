@@ -13,8 +13,6 @@ import androidx.compose.runtime.setValue
  * @param transform this function is used to change the data type in the field state. You can use it to convert the data in the field to your preferred type e.g [String] to [Int]
  * @param validators this is the list of [Validators] that are used to validate the field state. By default most states will have an empty list. You can override this and provide your own list of validators.
  *
- * @author [Linus Muema](https://github.com/linusmuema)
- * @created 05/04/2022 - 10:00 AM
  */
 abstract class BaseState<T>(
     val initial: T,

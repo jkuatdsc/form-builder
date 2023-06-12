@@ -16,7 +16,6 @@ import androidx.compose.runtime.*
  *
  * @param validators a list of [Validators] applied to the state's value.
  *
- * @author [Samwel Otieno](https://github.com/otienosamwel)
  */
 class SelectState(
     name: String,
@@ -127,5 +126,4 @@ class SelectState(
     override fun getData(): Any? {
         return if (transform == null) value.toList() else transform.transform(value)
     }
-
 }

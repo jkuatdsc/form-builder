@@ -1,6 +1,9 @@
 package com.dsc.form_builder
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.input.VisualTransformation
+import com.dsc.form_builder.format.Formatter
+import com.dsc.form_builder.format.toVisualTransformation
 
 /**
  * This class represents the state of a single form field.
@@ -10,11 +13,9 @@ import androidx.compose.runtime.*
  *
  * @param name The name of the field used to access the state when required in the form
  * @param initial The initial value/state of the field. By default it is an empty string.
+ * @param formatter The formatting option for the field.
  * @param transform The function used to change the [String] data type on the text field to a suitable type e.g [String] to [Int].
  * @param validators This is the list of [Validators] that are used to validate the field state. By default the field states will have an empty list. You can override this and provide your own list of validators.
- *
- * @author [Joy Kangangi](https://github.com/joykangangi)
- * @created 06/04/2022 - 2:50 p.m.
  *
  */
 open class TextFieldState(
@@ -22,6 +23,7 @@ open class TextFieldState(
     initial: String = "",
     transform: Transform<String>? = null,
     validators: List<Validators> = listOf(),
+    private val formatter: Formatter? = null,
 ) : BaseState<String>(initial = initial, name = name, transform = transform, validators = validators) {
 
     /**
@@ -40,9 +42,24 @@ open class TextFieldState(
         this.value = update
     }
 
+
     /**
-     *This function is used to validate all text field inputs by checking against
-     *the corresponding validator from the list of [validators].
+     * This function is used to get a value transformation for a specified formatter.
+     * You need to first provide a [Formatter]. As the input value changes, the value is formatted.
+     */
+    fun getTransformation(): VisualTransformation {
+        checkNotNull(this.formatter) {
+            """
+            Missing formatter in the class. 
+            You need to specify a formatter to use the getFormattedValue function.
+            """.trimIndent()
+        }
+        return formatter.toVisualTransformation()
+    }
+
+    /**
+     * This function is used to validate all text field inputs by checking against
+     * the corresponding validator from the list of [validators].
      * The validation checks are functions to validate the field values.
      * and returns true only if all fields are valid.
      * It is
@@ -206,4 +223,3 @@ open class TextFieldState(
         return valid
     }
 }
-
