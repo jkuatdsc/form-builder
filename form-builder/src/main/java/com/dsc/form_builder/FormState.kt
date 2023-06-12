@@ -7,8 +7,6 @@ import kotlin.reflect.KParameter
  * This class represents the state of the whole form, i.e, the whole collection of fields. It is used to manage all of the states in terms of accessing data and validations.
  * @param fields this is a list of all fields in the form. We pass them as a parameter to the constructor for ease of management and access.
  *
- * @author [Linus Muema](https://github.com/linusmuema)
- * @created 05/04/2022 - 10:00 AM
  */
 open class FormState<T : BaseState<*>>(val fields: List<T>) {
 

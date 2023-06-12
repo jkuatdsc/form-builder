@@ -5,7 +5,12 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.dsc.form_builder.*
+import com.dsc.form_builder.BaseState
+import com.dsc.form_builder.ChoiceState
+import com.dsc.form_builder.FormState
+import com.dsc.form_builder.SelectState
+import com.dsc.form_builder.TextFieldState
+import com.dsc.form_builder.Validators
 import com.dsc.formbuilder.screens.survey.components.SurveyModel
 
 class SurveyViewmodel : ViewModel() {
@@ -26,7 +31,7 @@ class SurveyViewmodel : ViewModel() {
                         message = "Username should have more than 4 characters"
                     ),
                     Validators.Required()
-                )
+                ),
             ),
             TextFieldState(
                 name = "email",
@@ -34,14 +39,14 @@ class SurveyViewmodel : ViewModel() {
                     Validators.Email(),
                     Validators.Required(),
                 ),
-                transform = { it.trim().lowercase() }
+                transform = { it.trim().lowercase() },
             ),
             TextFieldState(
                 name = "number",
                 validators = listOf(
                     Validators.Phone(),
                     Validators.Required(),
-                )
+                ),
             ),
             SelectState(
                 name = "platform",
