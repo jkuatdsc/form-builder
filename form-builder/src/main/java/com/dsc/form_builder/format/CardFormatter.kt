@@ -10,6 +10,6 @@ package com.dsc.form_builder.format
  */
 object CardFormatter: Formatter {
     override fun format(value: String): String {
-        return value.replace(" ", "").chunked(4).joinToString(" ")
+        return value.chunked(4).joinToString(" ")
     }
 }
