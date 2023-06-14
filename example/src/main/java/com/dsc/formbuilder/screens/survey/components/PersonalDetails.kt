@@ -16,7 +16,7 @@ import com.dsc.formbuilder.theme.FormBuilderTheme
 
 @Composable
 fun PersonalDetails(formState: FormState<BaseState<*>>) {
-    val usernameState: TextFieldState = formState.getState("username")
+    val webUrlState: TextFieldState = formState.getState("web_url")
     val emailState: TextFieldState = formState.getState("email")
     val numberState: TextFieldState = formState.getState("number")
 
@@ -29,15 +29,17 @@ fun PersonalDetails(formState: FormState<BaseState<*>>) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        TextInput(label = "Username", state = usernameState)
-
-        Spacer(modifier = Modifier.height(10.dp))
-
         TextInput(label = "Email", state = emailState)
 
         Spacer(modifier = Modifier.height(10.dp))
 
         TextInput(label = "Number", state = numberState)
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        TextInput(label = "Website Link", state = webUrlState)
+
+
 
     }
 }
