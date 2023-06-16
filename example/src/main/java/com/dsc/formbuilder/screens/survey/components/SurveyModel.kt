@@ -3,8 +3,9 @@ package com.dsc.formbuilder.screens.survey.components
 data class SurveyModel(
     // First page
     val email: String,
-    val number: String,
-    val username: String,
+    val card: String,
+    val phone: String,
+    val date: String,
 
     // Second page
     val ide: List<String>,

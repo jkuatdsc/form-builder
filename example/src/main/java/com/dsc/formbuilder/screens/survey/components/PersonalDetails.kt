@@ -1,26 +1,42 @@
 package com.dsc.formbuilder.screens.survey.components
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.Center
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dsc.form_builder.BaseState
 import com.dsc.form_builder.FormState
 import com.dsc.form_builder.TextFieldState
+import com.dsc.form_builder.format.CardFormatter
+import com.dsc.form_builder.format.DateFormat
+import com.dsc.form_builder.format.DateFormatter
 import com.dsc.formbuilder.theme.FormBuilderTheme
 
 @Composable
 fun PersonalDetails(formState: FormState<BaseState<*>>) {
-    val webUrlState: TextFieldState = formState.getState("web_url")
     val emailState: TextFieldState = formState.getState("email")
-    val numberState: TextFieldState = formState.getState("number")
+    val cardState: TextFieldState = formState.getState("card")
+    val phoneState: TextFieldState = formState.getState("phone")
+    val dateState: TextFieldState = formState.getState("date")
 
-    Column(verticalArrangement = Center, horizontalAlignment = CenterHorizontally) {
+    Column(
+        verticalArrangement = Center,
+        horizontalAlignment = CenterHorizontally
+    ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "Personal Details",
@@ -29,23 +45,37 @@ fun PersonalDetails(formState: FormState<BaseState<*>>) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        TextInput(label = "Email", state = emailState)
+       TextInput(label = "Email", state = emailState)
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        TextInput(label = "Number", state = numberState)
+        TextInput(
+            label = "Card Number",
+            state = cardState,
+            visualTransformation = cardState.getTransformation()
+        )
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        TextInput(label = "Website Link", state = webUrlState)
+        TextInput(label = "Phone Number", state = phoneState)
 
+        Spacer(modifier = Modifier.height(10.dp))
 
+        TextInput(
+            label = "Date of birth",
+            state = dateState,
+            visualTransformation = dateState.getTransformation()
+        )
 
     }
 }
 
 @Composable
-fun TextInput(label: String, state: TextFieldState) {
+fun TextInput(
+    label: String,
+    state: TextFieldState,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+) {
 
     Column {
         OutlinedTextField(
@@ -60,6 +90,8 @@ fun TextInput(label: String, state: TextFieldState) {
                 focusedBorderColor = MaterialTheme.colors.onPrimary,
                 unfocusedBorderColor = MaterialTheme.colors.onPrimary
             ),
+            singleLine = true,
+            visualTransformation = visualTransformation,
         )
 
         if (state.hasError) {
@@ -80,9 +112,13 @@ fun TextInput(label: String, state: TextFieldState) {
 fun PersonalDetailsPreview() {
     val formState: FormState<BaseState<*>> = FormState(
         listOf(
-            TextFieldState("username"),
             TextFieldState("email"),
-            TextFieldState("number")
+            TextFieldState("phone"),
+            TextFieldState(
+                "date",
+                formatter = DateFormatter(dateFormat = DateFormat.DDMMYYYY, separator = "/"),
+            ),
+            TextFieldState("card", formatter = CardFormatter),
         )
     )
 

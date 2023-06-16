@@ -11,7 +11,13 @@ import com.dsc.form_builder.FormState
 import com.dsc.form_builder.SelectState
 import com.dsc.form_builder.TextFieldState
 import com.dsc.form_builder.Validators
+import com.dsc.form_builder.format.CardFormatter
+import com.dsc.form_builder.format.DateFormat
+import com.dsc.form_builder.format.DateFormatter
 import com.dsc.formbuilder.screens.survey.components.SurveyModel
+import java.time.DateTimeException
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class SurveyViewmodel : ViewModel() {
 
@@ -32,17 +38,31 @@ class SurveyViewmodel : ViewModel() {
                 transform = { it.trim().lowercase() },
             ),
             TextFieldState(
-                name = "number",
+                name = "card",
+                formatter = CardFormatter,
+                validators = listOf(
+                    Validators.CardNumber(),
+                    Validators.Required(),
+                ),
+            ),
+            TextFieldState(
+                name = "phone",
                 validators = listOf(
                     Validators.Phone(),
                     Validators.Required(),
                 ),
             ),
             TextFieldState(
-                name = "web_url",
+                name = "date",
+                formatter = DateFormatter(dateFormat = DateFormat.DDMMYYYY, separator = "/"),
                 validators = listOf(
-                    Validators.WebUrl(),
-                    Validators.Required()
+                    Validators.Required(),
+                    Validators.Custom(
+                        function = {
+                            validDate(date = it.toString())
+                        },
+                        message = "Invalid date"
+                    )
                 ),
             ),
             SelectState(
@@ -50,10 +70,6 @@ class SurveyViewmodel : ViewModel() {
                 validators = listOf(
                     Validators.Required(
                         message = "Select at least one platform"
-                    ),
-                    Validators.Max(
-                        limit = 2,
-                        message = "Select at most two platforms"
                     )
                 ),
             ),
@@ -100,13 +116,30 @@ class SurveyViewmodel : ViewModel() {
         )
     )
 
+    private fun validDate(date: String): Boolean {
+        val formatter = DateTimeFormatter.ofPattern("ddMMyyyy")
+
+        return try {
+            LocalDate.parse(date, formatter)
+            true
+        } catch (e: DateTimeException) {
+            false
+        }
+
+    }
+
     fun navigate(screen: Int) {
         _screen.value = screen
     }
 
     fun validateSurvey() {
-        val pages: List<List<Int>> = (0..5).chunked(3)
-        if (!formState.validate()){
+        val pages: List<List<Int>> = listOf(
+            (0..3).toList(),
+            (4..6).toList(),
+            (7..9).toList()
+        )
+
+        if (!formState.validate()) {
             val position = formState.fields.indexOfFirst { it.hasError }
             _screen.value = pages.indexOfFirst { it.contains(position) }
         } else {
@@ -116,9 +149,15 @@ class SurveyViewmodel : ViewModel() {
     }
 
     fun validateScreen(screen: Int) {
-        val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
-        if (fields.map { it.validate() }.all { it }){ // map is used so we can execute validate() on all fields in that screen
-            if (screen == 2){
+        val fields: List<BaseState<*>> = when (screen) {
+            0 -> formState.fields.subList(0, 4)
+            1 -> formState.fields.subList(4, 7)
+            2 -> formState.fields.subList(7, 9)
+            else -> emptyList()
+        }
+
+        if (fields.map { it.validate() }.all { it }) {
+            if (screen == 2) {
                 logData()
                 _finish.value = true
             }
