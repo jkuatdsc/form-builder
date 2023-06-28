@@ -3,13 +3,13 @@ package com.dsc.form_builder.format
 /**
  * These are the formatting options for the [DateFormatter] class.
  */
-enum class DateFormat {
-    DDMMYYYY,
-    MMDDYYYY,
-    YYYYDDMM,
-    DDMMYY,
-    MMDDYY,
-    YYMMDD,
+enum class DateFormat(val pattern: String) {
+    DDMMYYYY("ddMMuuuu"),
+    MMDDYYYY("MMdduuuu"),
+    YYYYDDMM("uuuuddMM"),
+    DDMMYY("ddMMuu"),
+    MMDDYY("MMdduu"),
+    YYMMDD("uuMMdd")
 }
 
 // Get the index where to place the separator

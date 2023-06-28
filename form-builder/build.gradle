@@ -26,6 +26,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -58,6 +59,9 @@ dependencies {
 
     // Kotlin reflection
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    // For using modern java 8 classes with older versions of android
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.2.2"
 }
 
 

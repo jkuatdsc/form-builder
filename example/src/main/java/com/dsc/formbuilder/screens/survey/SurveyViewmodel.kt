@@ -15,9 +15,6 @@ import com.dsc.form_builder.format.CardFormatter
 import com.dsc.form_builder.format.DateFormat
 import com.dsc.form_builder.format.DateFormatter
 import com.dsc.formbuilder.screens.survey.components.SurveyModel
-import java.time.DateTimeException
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class SurveyViewmodel : ViewModel() {
 
@@ -57,12 +54,7 @@ class SurveyViewmodel : ViewModel() {
                 formatter = DateFormatter(dateFormat = DateFormat.DDMMYYYY, separator = "/"),
                 validators = listOf(
                     Validators.Required(),
-                    Validators.Custom(
-                        function = {
-                            validDate(date = it.toString())
-                        },
-                        message = "Invalid date"
-                    )
+                    Validators.Date(format = DateFormat.DDMMYY)
                 ),
             ),
             SelectState(
@@ -115,18 +107,6 @@ class SurveyViewmodel : ViewModel() {
             )
         )
     )
-
-    private fun validDate(date: String): Boolean {
-        val formatter = DateTimeFormatter.ofPattern("ddMMyyyy")
-
-        return try {
-            LocalDate.parse(date, formatter)
-            true
-        } catch (e: DateTimeException) {
-            false
-        }
-
-    }
 
     fun navigate(screen: Int) {
         _screen.value = screen
