@@ -1,5 +1,6 @@
 package com.dsc.form_builder
 
+import com.dsc.form_builder.format.DateFormat
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.ArgumentsProvider
@@ -76,5 +77,16 @@ object MaxValueArgumentsProvider : ArgumentsProvider {
         Arguments.of("20", 20, true),
         Arguments.of("20", 15, false),
         Arguments.of("test", 15, false),
+    )
+}
+
+object DateArgumentsProvider : ArgumentsProvider {
+    override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
+        Arguments.of("12122012", DateFormat.DDMMYYYY, true),
+        Arguments.of("06312023", DateFormat.MMDDYYYY, false),
+        Arguments.of("20231504", DateFormat.YYYYDDMM, true),
+        Arguments.of("290213", DateFormat.DDMMYY, false), // Non Leap Year
+        Arguments.of("121323", DateFormat.MMDDYY, true),
+        Arguments.of("070626", DateFormat.YYMMDD, true)
     )
 }

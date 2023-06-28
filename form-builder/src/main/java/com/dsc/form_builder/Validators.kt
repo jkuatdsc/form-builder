@@ -1,10 +1,13 @@
 package com.dsc.form_builder
 
+import com.dsc.form_builder.format.DateFormat
+
 private const val EMAIL_MESSAGE = "Invalid email address"
 private const val REQUIRED_MESSAGE = "This field is required"
 private const val PHONE_MESSAGE = "Invalid phone number"
 private const val WEB_URL_MESSAGE = "Invalid web url"
 private const val CARD_NUMBER_MESSAGE = "Invalid card number"
+private const val DATE_MESSAGE = "Invalid date"
 
 /**
  *
@@ -50,6 +53,13 @@ sealed interface Validators {
      * @param message the error message to display if the value is not a valid card number. By default we use the [CARD_NUMBER_MESSAGE] constant.
      */
     class CardNumber(var message: String = CARD_NUMBER_MESSAGE) : Validators
+
+    /**
+     * This is a date validator. It will return true if the string value is a valid date.
+     * @param message the error message to display if the value is not a valid date. By default we use the [DATE_MESSAGE] constant.
+     * @param format the pattern that specifies the expected format of the date string.
+     */
+    class Date(var message: String = DATE_MESSAGE, var format: DateFormat) : Validators
 
     /**
      * This validator is used to check for numeric values. It will return true is the value is numeric and is greater than or equal to the specified limit.

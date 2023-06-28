@@ -11,6 +11,9 @@ import com.dsc.form_builder.FormState
 import com.dsc.form_builder.SelectState
 import com.dsc.form_builder.TextFieldState
 import com.dsc.form_builder.Validators
+import com.dsc.form_builder.format.CardFormatter
+import com.dsc.form_builder.format.DateFormat
+import com.dsc.form_builder.format.DateFormatter
 import com.dsc.formbuilder.screens.survey.components.SurveyModel
 
 class SurveyViewmodel : ViewModel() {
@@ -24,16 +27,6 @@ class SurveyViewmodel : ViewModel() {
     val formState: FormState<BaseState<*>> = FormState(
         fields = listOf(
             TextFieldState(
-                name = "username",
-                validators = listOf(
-                    Validators.Min(
-                        limit = 4,
-                        message = "Username should have more than 4 characters"
-                    ),
-                    Validators.Required()
-                ),
-            ),
-            TextFieldState(
                 name = "email",
                 validators = listOf(
                     Validators.Email(),
@@ -42,9 +35,18 @@ class SurveyViewmodel : ViewModel() {
                 transform = { it.trim().lowercase() },
             ),
             TextFieldState(
-                name = "number",
+                name = "card",
+                formatter = CardFormatter,
                 validators = listOf(
-                    Validators.Phone(),
+                    Validators.CardNumber(),
+                    Validators.Required(),
+                ),
+            ),
+            TextFieldState(
+                name = "date",
+                formatter = DateFormatter(dateFormat = DateFormat.DDMMYYYY, separator = "/"),
+                validators = listOf(
+                    Validators.Date(format = DateFormat.DDMMYYYY),
                     Validators.Required(),
                 ),
             ),
@@ -105,7 +107,7 @@ class SurveyViewmodel : ViewModel() {
 
     fun validateSurvey() {
         val pages: List<List<Int>> = (0..5).chunked(3)
-        if (!formState.validate()){
+        if (!formState.validate()) {
             val position = formState.fields.indexOfFirst { it.hasError }
             _screen.value = pages.indexOfFirst { it.contains(position) }
         } else {
@@ -116,8 +118,9 @@ class SurveyViewmodel : ViewModel() {
 
     fun validateScreen(screen: Int) {
         val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
-        if (fields.map { it.validate() }.all { it }){ // map is used so we can execute validate() on all fields in that screen
-            if (screen == 2){
+        if (fields.map { it.validate() }
+                .all { it }) { // map is used so we can execute validate() on all fields in that screen
+            if (screen == 2) {
                 logData()
                 _finish.value = true
             }

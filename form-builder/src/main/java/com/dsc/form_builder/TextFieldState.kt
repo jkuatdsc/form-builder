@@ -2,8 +2,14 @@ package com.dsc.form_builder
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.text.input.VisualTransformation
+import com.dsc.form_builder.format.DateFormat
+import com.dsc.form_builder.format.DateFormatter
 import com.dsc.form_builder.format.Formatter
 import com.dsc.form_builder.format.toVisualTransformation
+import java.time.DateTimeException
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.ResolverStyle
 
 /**
  * This class represents the state of a single form field.
@@ -24,7 +30,12 @@ open class TextFieldState(
     transform: Transform<String>? = null,
     validators: List<Validators> = listOf(),
     private val formatter: Formatter? = null,
-) : BaseState<String>(initial = initial, name = name, transform = transform, validators = validators) {
+) : BaseState<String>(
+    initial = initial,
+    name = name,
+    transform = transform,
+    validators = validators
+) {
 
     /**
      * A mutable value holder that reads to the initial parameter during the execution of a [Composable]
@@ -79,6 +90,7 @@ open class TextFieldState(
                 is Validators.Custom -> validateCustom(it.function, it.message)
                 is Validators.MinValue -> validateMinValue(it.limit, it.message)
                 is Validators.MaxValue -> validateMaxValue(it.limit, it.message)
+                is Validators.Date -> validateDate(it.message, it.format)
             }
         }
         return validations.all { it }
@@ -152,7 +164,27 @@ open class TextFieldState(
             checksum += if (n > 9) n - 9 else n
         }
 
-        val valid = checksum%10 == 0
+        val valid = checksum % 10 == 0
+        if (!valid) showError(message)
+        return valid
+    }
+
+    /**
+     * This function validates a Date in [value].
+     * It will return true if the string value is a valid date.
+     * This function makes use of the [java.time.format.DateTimeFormatter] and [java.time.LocalDate] to verify the validity of the date.
+     * @param message the error message passed to [showError] to display if the value is not a valid date. By default we use the [DATE_MESSAGE] constant.
+     * @param dateFormat the format pattern that specifies the expected format of the date [value] string.
+     */
+    internal fun validateDate(message: String, dateFormat: DateFormat): Boolean {
+        val formatter =
+            DateTimeFormatter.ofPattern(dateFormat.pattern).withResolverStyle(ResolverStyle.STRICT)
+        val valid = try {
+            LocalDate.parse(value, formatter)
+            true
+        } catch (e: DateTimeException) {
+            false
+        }
         if (!valid) showError(message)
         return valid
     }
