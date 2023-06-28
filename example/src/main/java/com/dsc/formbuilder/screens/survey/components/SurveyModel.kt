@@ -4,7 +4,6 @@ data class SurveyModel(
     // First page
     val email: String,
     val card: String,
-    val phone: String,
     val date: String,
 
     // Second page

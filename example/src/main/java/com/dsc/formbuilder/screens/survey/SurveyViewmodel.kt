@@ -43,18 +43,11 @@ class SurveyViewmodel : ViewModel() {
                 ),
             ),
             TextFieldState(
-                name = "phone",
-                validators = listOf(
-                    Validators.Phone(),
-                    Validators.Required(),
-                ),
-            ),
-            TextFieldState(
                 name = "date",
                 formatter = DateFormatter(dateFormat = DateFormat.DDMMYYYY, separator = "/"),
                 validators = listOf(
+                    Validators.Date(format = DateFormat.DDMMYYYY),
                     Validators.Required(),
-                    Validators.Date(format = DateFormat.DDMMYY)
                 ),
             ),
             SelectState(
@@ -113,12 +106,7 @@ class SurveyViewmodel : ViewModel() {
     }
 
     fun validateSurvey() {
-        val pages: List<List<Int>> = listOf(
-            (0..3).toList(),
-            (4..6).toList(),
-            (7..9).toList()
-        )
-
+        val pages: List<List<Int>> = (0..5).chunked(3)
         if (!formState.validate()) {
             val position = formState.fields.indexOfFirst { it.hasError }
             _screen.value = pages.indexOfFirst { it.contains(position) }
@@ -129,14 +117,9 @@ class SurveyViewmodel : ViewModel() {
     }
 
     fun validateScreen(screen: Int) {
-        val fields: List<BaseState<*>> = when (screen) {
-            0 -> formState.fields.subList(0, 4)
-            1 -> formState.fields.subList(4, 7)
-            2 -> formState.fields.subList(7, 9)
-            else -> emptyList()
-        }
-
-        if (fields.map { it.validate() }.all { it }) {
+        val fields: List<BaseState<*>> = formState.fields.chunked(3)[screen]
+        if (fields.map { it.validate() }
+                .all { it }) { // map is used so we can execute validate() on all fields in that screen
             if (screen == 2) {
                 logData()
                 _finish.value = true

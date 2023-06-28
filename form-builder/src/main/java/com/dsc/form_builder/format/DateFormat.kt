@@ -17,11 +17,11 @@ private fun DateFormat.separatorIndices(): MutableList<Int> {
     val indices = mutableListOf<Int>()
     val stringFormat = this.toString()
     stringFormat.forEachIndexed { index, char ->
-        if (index > 0){
-            val prev = stringFormat[index-1]
+        if (index > 0) {
+            val prev = stringFormat[index - 1]
 
             if (prev != char) {
-                if (indices.isNotEmpty()) indices.add(index+1)
+                if (indices.isNotEmpty()) indices.add(index + 1)
                 else indices.add(index)
             }
         }
@@ -38,7 +38,7 @@ private fun DateFormat.separatorIndices(): MutableList<Int> {
  * Note: character limiting is not supported in the formatter.
  */
 
-class DateFormatter(private val dateFormat: DateFormat, private val separator: String): Formatter {
+class DateFormatter(private val dateFormat: DateFormat, private val separator: String) : Formatter {
     override fun format(value: String): String {
         var formatted = value
         val indices = dateFormat.separatorIndices()

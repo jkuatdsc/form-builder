@@ -30,7 +30,6 @@ import com.dsc.formbuilder.theme.FormBuilderTheme
 fun PersonalDetails(formState: FormState<BaseState<*>>) {
     val emailState: TextFieldState = formState.getState("email")
     val cardState: TextFieldState = formState.getState("card")
-    val phoneState: TextFieldState = formState.getState("phone")
     val dateState: TextFieldState = formState.getState("date")
 
     Column(
@@ -45,7 +44,7 @@ fun PersonalDetails(formState: FormState<BaseState<*>>) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-       TextInput(label = "Email", state = emailState)
+        TextInput(label = "Email", state = emailState)
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -54,10 +53,6 @@ fun PersonalDetails(formState: FormState<BaseState<*>>) {
             state = cardState,
             visualTransformation = cardState.getTransformation()
         )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        TextInput(label = "Phone Number", state = phoneState)
 
         Spacer(modifier = Modifier.height(10.dp))
 
