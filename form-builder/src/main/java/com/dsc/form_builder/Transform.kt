@@ -3,8 +3,8 @@ package com.dsc.form_builder
 /**
  * This interface is used to allow change of data types to a suitable type when necessary.
  *
- *@author [Joy Kangangi](https://github.com/joykangangi)
- * @created 06/04/2022 - 2:35 p.m.
+ * @author [Joy Kangangi](https://github.com/joykangangi)
+ * @created 06/04/2022
  */
 
 fun interface Transform<T> {

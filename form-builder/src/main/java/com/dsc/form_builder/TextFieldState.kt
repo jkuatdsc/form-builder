@@ -1,6 +1,15 @@
 package com.dsc.form_builder
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.input.VisualTransformation
+import com.dsc.form_builder.format.DateFormat
+import com.dsc.form_builder.format.DateFormatter
+import com.dsc.form_builder.format.Formatter
+import com.dsc.form_builder.format.toVisualTransformation
+import java.time.DateTimeException
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.ResolverStyle
 
 /**
  * This class represents the state of a single form field.
@@ -12,17 +21,23 @@ import androidx.compose.runtime.*
  * @param initial The initial value/state of the field. By default it is an empty string.
  * @param transform The function used to change the [String] data type on the text field to a suitable type e.g [String] to [Int].
  * @param validators This is the list of [Validators] that are used to validate the field state. By default the field states will have an empty list. You can override this and provide your own list of validators.
+ * @param formatter The formatting option for the field.
  *
  * @author [Joy Kangangi](https://github.com/joykangangi)
- * @created 06/04/2022 - 2:50 p.m.
- *
+ * @created 06/04/2022
  */
 open class TextFieldState(
     name: String,
     initial: String = "",
     transform: Transform<String>? = null,
     validators: List<Validators> = listOf(),
-) : BaseState<String>(initial = initial, name = name, transform = transform, validators = validators) {
+    private val formatter: Formatter? = null,
+) : BaseState<String>(
+    initial = initial,
+    name = name,
+    transform = transform,
+    validators = validators
+) {
 
     /**
      * A mutable value holder that reads to the initial parameter during the execution of a [Composable]
@@ -40,9 +55,24 @@ open class TextFieldState(
         this.value = update
     }
 
+
     /**
-     *This function is used to validate all text field inputs by checking against
-     *the corresponding validator from the list of [validators].
+     * This function is used to get a value transformation for a specified formatter.
+     * You need to first provide a [Formatter]. As the input value changes, the value is formatted.
+     */
+    fun getTransformation(): VisualTransformation {
+        checkNotNull(this.formatter) {
+            """
+            Missing formatter in the class. 
+            You need to specify a formatter to use the getFormattedValue function.
+            """.trimIndent()
+        }
+        return formatter.toVisualTransformation()
+    }
+
+    /**
+     * This function is used to validate all text field inputs by checking against
+     * the corresponding validator from the list of [validators].
      * The validation checks are functions to validate the field values.
      * and returns true only if all fields are valid.
      * It is
@@ -62,6 +92,7 @@ open class TextFieldState(
                 is Validators.Custom -> validateCustom(it.function, it.message)
                 is Validators.MinValue -> validateMinValue(it.limit, it.message)
                 is Validators.MaxValue -> validateMaxValue(it.limit, it.message)
+                is Validators.Date -> validateDate(it.message, it.format)
             }
         }
         return validations.all { it }
@@ -135,7 +166,27 @@ open class TextFieldState(
             checksum += if (n > 9) n - 9 else n
         }
 
-        val valid = checksum%10 == 0
+        val valid = checksum % 10 == 0
+        if (!valid) showError(message)
+        return valid
+    }
+
+    /**
+     * This function validates a Date in [value].
+     * It will return true if the string value is a valid date.
+     * This function makes use of the [java.time.format.DateTimeFormatter] and [java.time.LocalDate] to verify the validity of the date.
+     * @param message the error message passed to [showError] to display if the value is not a valid date. By default we use the [DATE_MESSAGE] constant.
+     * @param dateFormat the format pattern that specifies the expected format of the date [value] string.
+     */
+    internal fun validateDate(message: String, dateFormat: DateFormat): Boolean {
+        val formatter =
+            DateTimeFormatter.ofPattern(dateFormat.pattern).withResolverStyle(ResolverStyle.STRICT)
+        val valid = try {
+            LocalDate.parse(value, formatter)
+            true
+        } catch (e: DateTimeException) {
+            false
+        }
         if (!valid) showError(message)
         return valid
     }
@@ -146,7 +197,7 @@ open class TextFieldState(
      * @param message the error message passed to [showError] to display if the [value] is empty. By default we use the [REQUIRED_MESSAGE] constant.
      */
     internal fun validateRequired(message: String): Boolean {
-        val valid = value.isNotEmpty()
+        val valid = value.isNotBlank()
         if (!valid) showError(message)
         return valid
     }
@@ -200,4 +251,3 @@ open class TextFieldState(
         return valid
     }
 }
-

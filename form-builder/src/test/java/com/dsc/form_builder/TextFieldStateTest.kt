@@ -1,5 +1,6 @@
 package com.dsc.form_builder
 
+import com.dsc.form_builder.format.DateFormat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -122,6 +123,15 @@ internal class TextFieldStateTest {
             classToTest.change(value)
 
             val actual = classToTest.validateMaxValue(limit, "expected validation: $expected")
+            assert(actual == expected)
+        }
+
+        @ParameterizedTest
+        @ArgumentsSource(DateArgumentsProvider::class)
+        fun `Validators_Date works correctly`(date: String, pattern: DateFormat, expected: Boolean) {
+            classToTest.change(date)
+
+            val actual = classToTest.validateDate("expected validation: $expected", pattern)
             assert(actual == expected)
         }
     }

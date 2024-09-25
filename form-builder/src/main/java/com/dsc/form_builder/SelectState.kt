@@ -127,5 +127,4 @@ class SelectState(
     override fun getData(): Any? {
         return if (transform == null) value.toList() else transform.transform(value)
     }
-
 }
